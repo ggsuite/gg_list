@@ -32,7 +32,7 @@ class Gg2dIntList extends Gg2dList<int> {
 
   // ...........................................................................
   factory Gg2dIntList.generate({
-    required int Function(int a, int b)? createValue,
+    required int Function(int col, int row)? createValue,
     required int min,
     required int max,
     required int rowCount,
@@ -60,7 +60,7 @@ class Gg2dIntList extends Gg2dList<int> {
 
   // ...........................................................................
   factory Gg2dIntList._generateIntSpace({
-    required int Function(int a, int b)? createValue,
+    required int Function(int col, int row)? createValue,
     required int colCount,
     required int rowCount,
     required int min,
@@ -78,8 +78,8 @@ class Gg2dIntList extends Gg2dList<int> {
           naf.sublistView(p0 as TypedData, start, end),
       createValue: createValue == null
           ? null
-          : (a, b) {
-              final val = createValue(a, b);
+          : (col, row) {
+              final val = createValue(col, row);
               if (val < min || val > max) {
                 // coverage:ignore-start
                 throw RangeError('Val $val must be between $min and $max.');

@@ -21,7 +21,7 @@ void main() {
     group('String spaces', () {
       test('should work fine', () {
         final before = Gg2dList.generate<String>(
-          createValue: (x, y) => '$x, $y',
+          createValue: (col, row) => '$col, $row',
           fill: '',
           rowCount: rowCount,
           colCount: colCount,

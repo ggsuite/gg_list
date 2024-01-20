@@ -29,7 +29,7 @@ class Gg2dList<V> {
 
   // ...........................................................................
   static Gg2dList<T> generate<T>({
-    required T Function(int x, int y)? createValue,
+    required T Function(int col, int row)? createValue,
     required T fill,
     required int rowCount,
     required int colCount,
@@ -40,7 +40,8 @@ class Gg2dList<V> {
       createBuffer: (length) => List<T>.filled(length, growable: false, fill),
       copyBuffer: List<T>.from,
       subList: (p0, [start = 0, end]) => p0.sublist(start, end),
-      createValue: createValue == null ? null : (a, b) => createValue(a, b),
+      createValue:
+          createValue == null ? null : (col, row) => createValue(col, row),
     );
   }
 
@@ -49,9 +50,9 @@ class Gg2dList<V> {
   // ######################
 
   // ...........................................................................
-  Gg2dList<V> copyWithValue(int x, int y, V value) {
+  Gg2dList<V> copyWithValue(int col, int row, V value) {
     // If nothing has changed, do nothing
-    final oldVal = this.value(x, y);
+    final oldVal = this.value(col, row);
     if (oldVal == value) {
       return this;
     }
@@ -63,16 +64,16 @@ class Gg2dList<V> {
     final rowHashes = Int64List.fromList(this.rowHashes);
 
     // Calculate index
-    final index = dataIndex(x, y, colCount);
-    final indexT = dataIndexT(x, y, rowCount);
+    final index = dataIndex(col, row, colCount);
+    final indexT = dataIndexT(col, row, rowCount);
 
     // Update value
     data[index] = value;
     dataT[indexT] = value;
 
     // Update hashes
-    rowHashes[y] = rowOrColHash(data, y, colCount);
-    colHashes[x] = rowOrColHash(dataT, x, rowCount);
+    rowHashes[row] = rowOrColHash(data, row, colCount);
+    colHashes[col] = rowOrColHash(dataT, col, rowCount);
 
     final hashCode = overallHash(rowHashes: rowHashes);
 
@@ -164,31 +165,31 @@ class Gg2dList<V> {
 
   // ...........................................................................
   /// Calculates the row data index of a coordinate
-  static int dataIndex(int x, int y, int colCount) => y * colCount + x;
+  static int dataIndex(int col, int row, int colCount) => row * colCount + col;
 
   // ...........................................................................
   /// Calculates the column data index of a coordinate
-  static int dataIndexT(int x, int y, int rowCount) => x * rowCount + y;
+  static int dataIndexT(int col, int row, int rowCount) => col * rowCount + row;
 
   // ######################
   // Data access
   // ######################
 
   // ...........................................................................
-  V value(int x, int y) => data[dataIndex(x, y, colCount)];
+  V value(int col, int row) => data[dataIndex(col, row, colCount)];
 
   // ...........................................................................
-  List<V> row(int y) => subList(
+  List<V> row(int row) => subList(
         data,
-        dataIndex(0, y, colCount),
-        dataIndex(0, y, colCount) + colCount,
+        dataIndex(0, row, colCount),
+        dataIndex(0, row, colCount) + colCount,
       );
 
   // ...........................................................................
-  List<V> col(int x) => subList(
+  List<V> col(int col) => subList(
         dataT,
-        dataIndexT(x, 0, rowCount),
-        dataIndexT(x, 0, rowCount) + rowCount,
+        dataIndexT(col, 0, rowCount),
+        dataIndexT(col, 0, rowCount) + rowCount,
       );
 
   // ###########################
@@ -232,7 +233,7 @@ class Gg2dList<V> {
     required List<V> Function(List<V>, int start, int? end) subList,
     required int colCount,
     required int rowCount,
-    V Function(int a, int b)? createValue,
+    V Function(int col, int row)? createValue,
     V? minValue,
     V? maxValue,
   }) {
@@ -244,9 +245,9 @@ class Gg2dList<V> {
     // Generate data
     if (createValue != null) {
       var i = 0;
-      for (var b = 0; b < rowCount; b++) {
-        for (var a = 0; a < colCount; a++) {
-          final val = createValue(a, b);
+      for (var row = 0; row < rowCount; row++) {
+        for (var col = 0; col < colCount; col++) {
+          final val = createValue(col, row);
           data[i] = val;
           i++;
         }

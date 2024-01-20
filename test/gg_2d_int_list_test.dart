@@ -29,7 +29,7 @@ void main() {
       int i = 0;
       final range = max - min + 1;
       final s = Gg2dIntList.generate(
-        createValue: (a, b) => min + (i++ % range),
+        createValue: (col, row) => min + (i++ % range),
         min: min,
         max: max,
         rowCount: rowCount,
@@ -47,7 +47,7 @@ void main() {
 
       if (performanceTest) {
         var empty = Gg2dIntList.generate(
-          createValue: (a, b) => 0,
+          createValue: (col, row) => 0,
           min: 0,
           max: 255,
           rowCount: rowCount,
@@ -120,7 +120,7 @@ void main() {
           expect(
             () {
               Gg2dIntList.generate(
-                createValue: (a, b) => max,
+                createValue: (col, row) => max,
                 min: min,
                 max: max,
                 rowCount: rowCount,
@@ -134,7 +134,7 @@ void main() {
           expect(
             () {
               Gg2dIntList.generate(
-                createValue: (a, b) => min,
+                createValue: (col, row) => min,
                 min: min,
                 max: max,
                 rowCount: rowCount,
@@ -148,7 +148,7 @@ void main() {
           expect(
             () {
               Gg2dIntList.generate(
-                createValue: (a, b) => max + 1,
+                createValue: (col, row) => max + 1,
                 min: min,
                 max: max,
                 rowCount: rowCount,
@@ -162,7 +162,7 @@ void main() {
           expect(
             () {
               Gg2dIntList.generate(
-                createValue: (a, b) => min - 1,
+                createValue: (col, row) => min - 1,
                 min: min,
                 max: max,
                 rowCount: rowCount,
@@ -175,7 +175,7 @@ void main() {
 
         test('should work fine', () {
           final before = Gg2dIntList.generate(
-            createValue: (a, b) => a * b,
+            createValue: (col, row) => col * row,
             min: 0,
             max: rowCount * colCount,
             rowCount: rowCount,
@@ -255,8 +255,8 @@ void main() {
     group('row(int b) should return the right row data', () {
       test('A first test in the group', () {
         final s = Gg2dIntList.generate(
-          createValue: (a, b) {
-            return a + b * 1000;
+          createValue: (col, row) {
+            return col + row * 1000;
           },
           min: 0,
           max: 0xFFFFFFFF,
