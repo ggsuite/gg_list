@@ -92,8 +92,8 @@ Future<int> main(List<String> arguments) async {
 
   final resultMessage = hasErrors
       ? 'Errors found. '
-          'Run "./ready_to_push.dart -v", fix errors and try again'
-      : '🤩 Everything is fine. You can push.';
+          'Run "./check.dart -v", fix errors and try again'
+      : '🤩 Everything is fine!';
 
   print('');
   print(resultMessage);

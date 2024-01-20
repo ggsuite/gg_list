@@ -13,7 +13,7 @@ jobs:
       - name: Set up Dart SDK
         uses: dart-lang/setup-dart@v1
         with:
-          sdk: "dev" # Use the Dart SDK from the dev channel
+          sdk: "dev"
 
       - name: Install dependencies
         run: dart pub get
@@ -22,7 +22,7 @@ jobs:
         run: sudo apt-get install lcov
 
       - name: Make Script Executable
-        run: chmod +x ./ready_to_push.dart
+        run: chmod +x ./check.dart
 
       - name: Run Script
-        run: ./ready_to_push.dart
+        run: ./check.dart
