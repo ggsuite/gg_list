@@ -3,6 +3,5 @@
 /// More dartdocs go here.
 library;
 
-export 'src/gg_list_base.dart';
-
-// TODO: Export any libraries intended for clients of this package.
+export 'src/gg_list.dart';
+export 'src/fnv1.dart';
