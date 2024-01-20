@@ -1,10 +1,10 @@
 name: gg_list
-description: A starting point for Dart libraries or applications.
+description: GgList - Automatically chose the right native list type
 version: 1.0.0
-# repository: https://github.com/my_org/my_repo
+repository: https://github.com/inlavigo/gg_list
 
 environment:
-  sdk: ^3.3.0-273.0.dev
+  sdk: ">=3.0.0 <4.0.0"
 
 dev_dependencies:
   args: ^2.4.2

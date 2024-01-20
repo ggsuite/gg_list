@@ -1,43 +1,33 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# GgList - Automatically chose the right native list type
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages).
+GgList allows to create optimized lists based on the value range.
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages).
--->
-
-# gg_list
+## State
 
 [![Dart Script Execution](https://github.com/inlavigo/gg_list/actions/workflows/check.yaml/badge.svg)](https://github.com/inlavigo/gg_list/actions/workflows/check.yaml)
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+## Classes
+
+| Class            | Description                                    |
+| :--------------- | :--------------------------------------------- |
+| `GgList`         | Create lists of ordinary value types           |
+| `Gg2dList`       | Access organize list items as rows and cols    |
+| `GgIntList`      | Create `Uint8List` etc based on a value range  |
+| `Gg2dIntList`    | Access organize list items as rows and cols    |
+| `IntListFactory` | Create native typed lists based on value range |
 
 ## Features
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
-
-## Getting started
-
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+- Generate a list of a given length and a given value range
+- GgList will automatically choose the right native type, e.g. `Uint8List`
+- The generated list is unmutable
+- Use `copyWith()` or `transform()` to generate new changed lists.
+- Also `hashcode` is calculated
 
 ## Usage
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
+Please look into the tests to find various usage examples.
 
-```dart
-const like = 'sample';
-```
+## Features and bugs
 
-## Additional information
-
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+Please file feature requests and bugs at [GitHub](https://github.com/inlavigo/gg_list).

@@ -44,7 +44,7 @@ class GgList<T> {
     required List<T> Function(List<T>, int start, int? end) subList,
     T Function(int i)? createValue,
   }) =>
-      _generate2(
+      _generate(
         length: length,
         createBuffer: createBuffer,
         copyBuffer: copyBuffer,
@@ -107,7 +107,7 @@ class GgList<T> {
 
   // ...........................................................................
   GgList<T> transform(T Function(int i, T val) transform) {
-    return _generate2(
+    return _generate(
       createValue: (i) {
         return transform(i, data[i]);
       },
@@ -161,7 +161,7 @@ class GgList<T> {
   // ######################
 
   // ...........................................................................
-  static GgList<T> _generate2<T>({
+  static GgList<T> _generate<T>({
     required int length,
     required List<T> Function(int length) createBuffer,
     required List<T> Function(List<T>) copyBuffer,
