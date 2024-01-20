@@ -49,7 +49,7 @@ void main() {
         const cB = 0;
         const iA = 2;
         const iB = 0;
-        final after = before.copyWithValue(cA, cB, 'changed');
+        final after = before.setValue(cA, cB, 'changed');
         expect(after.value(2, 0), 'changed');
 
         // Objects should not be equal
@@ -79,7 +79,7 @@ void main() {
         }
 
         // Revert Change
-        final reverted = after.copyWithValue(
+        final reverted = after.setValue(
           cA,
           cB,
           before.value(cA, cB),

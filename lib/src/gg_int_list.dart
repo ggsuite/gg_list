@@ -9,35 +9,29 @@ import 'dart:typed_data';
 import 'gg_list.dart';
 import 'int_list_factory.dart';
 
+/// A list implementation that manages ints lists internally as native arrays
 class GgIntList extends GgList<int> {
   // ...........................................................................
+  /// An int list internally managed as native array
   const GgIntList({
     required super.data,
     required super.hashCode,
-    required super.createBuffer,
-    required super.copyBuffer,
+    required super.createData,
+    required super.copyData,
     required super.createSubList,
     required this.min,
     required this.max,
   });
 
   // ...........................................................................
+  /// The minimum allowed value
   final int min;
+
+  /// The maximum allowed value
   final int max;
 
   // ...........................................................................
-  GgIntList.fromIntList(GgIntList intList)
-      : min = intList.min,
-        max = intList.max,
-        super(
-          data: intList.data,
-          hashCode: intList.hashCode,
-          createBuffer: intList.createBuffer,
-          copyBuffer: intList.copyBuffer,
-          createSubList: intList.createSubList,
-        );
-
-  // ...........................................................................
+  /// Creates a GgIntList from a List
   factory GgIntList.fromList(
     List<int> values, {
     required int min,
@@ -51,6 +45,7 @@ class GgIntList extends GgList<int> {
       );
 
   // ...........................................................................
+  /// Creates a GgIntList from a createValue method
   factory GgIntList.generate({
     required int Function(int i)? createValue,
     required int length,
@@ -71,6 +66,7 @@ class GgIntList extends GgList<int> {
   }
 
   // ...........................................................................
+  /// The plus operator adding the items of two lists together
   GgIntList operator +(GgIntList other) =>
       transform((i, val) => val + other.data[i]);
 
@@ -108,8 +104,8 @@ class GgIntList extends GgList<int> {
     return GgIntList(
       data: result.data,
       hashCode: result.hashCode,
-      createBuffer: result.createBuffer,
-      copyBuffer: result.copyBuffer,
+      createData: result.createData,
+      copyData: result.copyData,
       createSubList: result.createSubList,
       min: min,
       max: max,
@@ -118,6 +114,7 @@ class GgIntList extends GgList<int> {
 }
 
 // #############################################################################
+/// An example GgIntList mainly for testing purposes
 final exampleGgIntList = GgIntList.generate(
   createValue: (i) => i,
   length: 8,

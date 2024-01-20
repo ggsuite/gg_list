@@ -48,8 +48,7 @@ int fnv1(List<dynamic> data, [int start = 0, int? end]) {
 
     // ............................
     // Turn data into an int64 list
-    data =
-        Int64List.sublistView(data as TypedData, start, end) as List<dynamic>;
+    data = Int64List.sublistView(data as TypedData, start, end);
     start = 0;
     end = data.length;
   }

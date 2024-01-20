@@ -9,3 +9,4 @@ coverage
 build
 *.vm.json
 .DS_Store
+doc

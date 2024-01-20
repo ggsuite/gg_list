@@ -7,21 +7,24 @@
 // #############################################################################
 import 'fnv1.dart';
 
+/// A list that can contain multiple arbitrary values
 class GgList<T> {
   // ######################
   // Constructors
   // ######################
 
   // ...........................................................................
+  /// The constructor
   const GgList({
     required this.data,
     required this.hashCode,
-    required this.createBuffer,
-    required this.copyBuffer,
+    required this.createData,
+    required this.copyData,
     required this.createSubList,
   });
 
   // ...........................................................................
+  /// Creates a list of [length] using [createValue] delegate.
   factory GgList.generate({
     required int length,
     required T Function(int i)? createValue,
@@ -37,22 +40,7 @@ class GgList<T> {
   }
 
   // ...........................................................................
-  factory GgList.special({
-    required int length,
-    required List<T> Function(int length) createBuffer,
-    required List<T> Function(List<T>) copyBuffer,
-    required List<T> Function(List<T>, int start, int? end) subList,
-    T Function(int i)? createValue,
-  }) =>
-      _generate(
-        length: length,
-        createBuffer: createBuffer,
-        copyBuffer: copyBuffer,
-        subList: subList,
-        createValue: createValue,
-      );
-
-  // ...........................................................................
+  /// Generate the list from another list
   factory GgList.fromList(
     List<T> values,
   ) =>
@@ -62,21 +50,13 @@ class GgList<T> {
         fill: values[0],
       );
 
-  // ...........................................................................
-  GgList.fromGgList(
-    GgList<T> list,
-  )   : data = list.data,
-        hashCode = list.hashCode,
-        createBuffer = list.createBuffer,
-        copyBuffer = list.copyBuffer,
-        createSubList = list.createSubList;
-
   // ######################
   // Copy & modify
   // ######################
 
   // ...........................................................................
-  GgList<T> copyWithValue(int i, T value) {
+  /// Copies the list and changes the value at index [i]
+  GgList<T> setValue(int i, T value) {
     // If nothing has changed, do nothing
     final oldVal = this.value(i);
     if (oldVal == value) {
@@ -84,7 +64,7 @@ class GgList<T> {
     }
 
     // Copy data and hashes
-    final data = copyBuffer(this.data);
+    final data = copyData(this.data);
 
     // Calculate index
     final index = i;
@@ -99,20 +79,21 @@ class GgList<T> {
     return GgList<T>(
       data: data,
       hashCode: hashCode,
-      createBuffer: createBuffer,
-      copyBuffer: copyBuffer,
+      createData: createData,
+      copyData: copyData,
       createSubList: createSubList,
     );
   }
 
   // ...........................................................................
+  /// Copies the lists and transforms all elements using [transform] delegate
   GgList<T> transform(T Function(int i, T val) transform) {
     return _generate(
       createValue: (i) {
         return transform(i, data[i]);
       },
-      copyBuffer: copyBuffer,
-      createBuffer: createBuffer,
+      copyBuffer: copyData,
+      createBuffer: createData,
       length: data.length,
       subList: createSubList,
     );
@@ -123,12 +104,15 @@ class GgList<T> {
   // ######################
 
   // ...........................................................................
+  /// Returns the list value at index [i]
   T value(int i) => data[i];
 
   // ...........................................................................
+  /// Returns the list value at index [i]
   T operator [](int i) => data[i];
 
   // ...........................................................................
+  /// Returns a sublist
   List<T> subList(int start, int? end) => createSubList(this.data, start, end);
 
   // ###########################
@@ -136,8 +120,13 @@ class GgList<T> {
   // ###########################
 
   // ...........................................................................
-  final List<T> Function(int length) createBuffer;
-  final List<T> Function(List<T>) copyBuffer;
+  /// The delegate for creating the data
+  final List<T> Function(int length) createData;
+
+  /// The delegate for copying the data
+  final List<T> Function(List<T>) copyData;
+
+  /// The delegate for creating a sublist
   final List<T> Function(List<T>, int start, int? end) createSubList;
 
   // ######################
@@ -145,8 +134,10 @@ class GgList<T> {
   // ######################
 
   // ...........................................................................
+  /// The actual data of the list
   final List<T> data;
 
+  /// The hashcode representing the content of all elements
   @override
   final int hashCode;
 
@@ -159,6 +150,23 @@ class GgList<T> {
   // ######################
   // Private
   // ######################
+
+  // ...........................................................................
+  /// Only used by derived classes
+  factory GgList.special({
+    required int length,
+    required List<T> Function(int length) createBuffer,
+    required List<T> Function(List<T>) copyBuffer,
+    required List<T> Function(List<T>, int start, int? end) subList,
+    T Function(int i)? createValue,
+  }) =>
+      _generate(
+        length: length,
+        createBuffer: createBuffer,
+        copyBuffer: copyBuffer,
+        subList: subList,
+        createValue: createValue,
+      );
 
   // ...........................................................................
   static GgList<T> _generate<T>({
@@ -186,8 +194,8 @@ class GgList<T> {
     final result = GgList<T>(
       data: data,
       hashCode: hashCode,
-      createBuffer: createBuffer,
-      copyBuffer: copyBuffer,
+      createData: createBuffer,
+      copyData: copyBuffer,
       createSubList: subList,
     );
 
@@ -197,6 +205,7 @@ class GgList<T> {
 }
 
 // #############################################################################
+/// An example list mainly for test purposes
 final exampleGgList = GgList<String>.generate(
   createValue: (i) => '$i',
   fill: '',

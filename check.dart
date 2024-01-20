@@ -8,9 +8,10 @@ import 'package:args/args.dart';
 // Helpers
 // ######################
 
-bool hasErrors = false;
-bool verbose = true;
-bool printAnnouncement = false;
+var isGitHub = Platform.environment.containsKey('GITHUB_ACTIONS');
+var hasErrors = false;
+var verbose = true;
+var printAnnouncement = !isGitHub;
 final errorMessages = <String>[];
 
 // .............................................................................
@@ -25,7 +26,7 @@ void printResult({
 
 // .............................................................................
 Future<bool> check({required String command, String? message}) async {
-  if (printAnnouncement) print('⌛️ $message ...');
+  if (printAnnouncement) print('⌛️ $message');
   final parts = command.split(' ');
   final cmd = parts.first;
   final List<String> arguments = parts.length > 1 ? parts.sublist(1) : [];
@@ -90,9 +91,14 @@ Future<int> main(List<String> arguments) async {
     message: 'dart check_coverage.dart',
   );
 
+  await check(
+    command: 'dart ./check_pana.dart',
+    message: 'dart run pana',
+  );
+
   final resultMessage = hasErrors
       ? 'Errors found. '
-          'Run "./check.dart -v", fix errors and try again'
+          'Run the failed commands above and, fix the errors and try again.'
       : '🤩 Everything is fine!';
 
   print('');

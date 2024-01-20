@@ -31,15 +31,6 @@ void main() {
     });
 
     // #########################################################################
-    group('fromGgList(values)', () {
-      test('should work', () {
-        final strList = GgList.fromList(['1', '2', '3']);
-        final strList2 = GgList.fromGgList(strList);
-        expect(strList2.data, ['1', '2', '3']);
-      });
-    });
-
-    // #########################################################################
     group('transform(i,v)', () {
       test('Should create a new transformed list', () {
         // Create a list
@@ -73,7 +64,7 @@ void main() {
 
         // Change a value
         const cB = 0;
-        final after = before.copyWithValue(cB, 'changed');
+        final after = before.setValue(cB, 'changed');
         expect(after.value(cB), 'changed');
 
         // Objects should not be equal
@@ -83,7 +74,7 @@ void main() {
         expect(before.hashCode, isNot(after.hashCode));
 
         // Revert Change
-        final reverted = after.copyWithValue(
+        final reverted = after.setValue(
           cB,
           before.value(cB),
         );

@@ -64,7 +64,7 @@ void main() {
           stopwatch.start();
           while (j-- > 0) {
             // empty.data[j % empty.data.length];
-            empty.copyWithValue(5, 10, Random(15).nextInt(255));
+            empty.setValue(5, 10, Random(15).nextInt(255));
           }
           stopwatch.stop();
           print('A Duration: ${stopwatch.elapsedMicroseconds / 1000.0}');
@@ -204,7 +204,7 @@ void main() {
           const cB = 0;
           const iA = 34;
           const iB = 0;
-          final after = before.copyWithValue(cA, cB, 123);
+          final after = before.setValue(cA, cB, 123);
           expect(after.value(34, 0), 123);
 
           // Objects should not be equal
@@ -234,7 +234,7 @@ void main() {
           }
 
           // Revert Change
-          final reverted = after.copyWithValue(
+          final reverted = after.setValue(
             cA,
             cB,
             before.value(cA, cB),

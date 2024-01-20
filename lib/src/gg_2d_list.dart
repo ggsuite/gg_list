@@ -9,7 +9,9 @@ import 'dart:typed_data';
 import '../gg_list.dart';
 
 // #############################################################################
+/// Effectively manages 2d data in an linear array
 class Gg2dList<V> {
+  /// The constructor
   const Gg2dList({
     required this.rowCount,
     required this.colCount,
@@ -18,8 +20,8 @@ class Gg2dList<V> {
     required this.colHashes,
     required this.rowHashes,
     required this.hashCode,
-    required this.createBuffer,
-    required this.copyBuffer,
+    required this.createData,
+    required this.copyData,
     required this.subList,
   });
 
@@ -28,6 +30,12 @@ class Gg2dList<V> {
   // ######################
 
   // ...........................................................................
+  /// Generates a 2d list
+  ///
+  /// - [createValue] - A callback creating the value for a given row/col
+  /// - [fill] - The default value inserted into the list
+  /// - [rowCount] - The number of rows
+  /// - [colCount] - The number of columns
   static Gg2dList<T> generate<T>({
     required T Function(int col, int row)? createValue,
     required T fill,
@@ -50,7 +58,11 @@ class Gg2dList<V> {
   // ######################
 
   // ...........................................................................
-  Gg2dList<V> copyWithValue(int col, int row, V value) {
+  /// Create a copy of the list with a changed value
+  ///
+  /// - [col],[row] - The cell to be changed
+  /// - [value] - The value to be inserted into the cell
+  Gg2dList<V> setValue(int col, int row, V value) {
     // If nothing has changed, do nothing
     final oldVal = this.value(col, row);
     if (oldVal == value) {
@@ -58,8 +70,8 @@ class Gg2dList<V> {
     }
 
     // Copy data and hashes
-    final data = copyBuffer(this.data);
-    final dataT = copyBuffer(this.dataT);
+    final data = copyData(this.data);
+    final dataT = copyData(this.dataT);
     final colHashes = Int64List.fromList(this.colHashes);
     final rowHashes = Int64List.fromList(this.rowHashes);
 
@@ -86,8 +98,8 @@ class Gg2dList<V> {
       colHashes: colHashes,
       rowHashes: rowHashes,
       hashCode: hashCode,
-      createBuffer: createBuffer,
-      copyBuffer: copyBuffer,
+      createData: createData,
+      copyData: copyData,
       subList: subList,
     );
   }
@@ -136,15 +148,18 @@ class Gg2dList<V> {
     return fnv1(data, startIndex, startIndex + cellsPerLine);
   }
 
-// ...........................................................................
-  static void updateAllHashes<T>({
+  // ...........................................................................
+  /// Calculate row and column hashes
+  static (Int64List rowHashes, Int64List colHashes)
+      calculateRowAndColHashes<T>({
     required List<T> data,
     required List<T> dataT,
-    required Int64List rowHashes,
-    required Int64List colHashes,
     required int rowCount,
     required int colCount,
   }) {
+    final rowHashes = Int64List(rowCount);
+    final colHashes = Int64List(colCount);
+
     for (var row = 0; row < rowCount; row++) {
       final hash = rowOrColHash(data, row, colCount);
       rowHashes[row] = hash;
@@ -154,9 +169,12 @@ class Gg2dList<V> {
       final hash = rowOrColHash(dataT, col, rowCount);
       colHashes[col] = hash;
     }
+
+    return (rowHashes, colHashes);
   }
 
-// ...........................................................................
+  // ...........................................................................
+  /// Calculates an overal list hash based on rowHashes
   static int overallHash({required Int64List rowHashes}) => fnv1(rowHashes);
 
   // ######################
@@ -176,9 +194,11 @@ class Gg2dList<V> {
   // ######################
 
   // ...........................................................................
+  /// Get the value for a given row and column
   V value(int col, int row) => data[dataIndex(col, row, colCount)];
 
   // ...........................................................................
+  /// Return a complete row
   List<V> row(int row) => subList(
         data,
         dataIndex(0, row, colCount),
@@ -186,6 +206,7 @@ class Gg2dList<V> {
       );
 
   // ...........................................................................
+  /// Return a complete column
   List<V> col(int col) => subList(
         dataT,
         dataIndexT(col, 0, rowCount),
@@ -197,8 +218,13 @@ class Gg2dList<V> {
   // ###########################
 
   // ...........................................................................
-  final List<V> Function(int length) createBuffer;
-  final List<V> Function(List<V>) copyBuffer;
+  /// This delegate is used to create a list
+  final List<V> Function(int length) createData;
+
+  /// This delegate is used to copy a list
+  final List<V> Function(List<V>) copyData;
+
+  /// This delegate is used to create a sublist
   final List<V> Function(List<V>, int start, int? end) subList;
 
   // ######################
@@ -206,11 +232,22 @@ class Gg2dList<V> {
   // ######################
 
   // ...........................................................................
+  /// The number of rows
   final int rowCount;
+
+  /// The number of columns
   final int colCount;
+
+  /// The actual list data
   final List<V> data;
+
+  /// The transposed lists data (rows and cols exchanged)
   final List<V> dataT;
+
+  /// The column hashes
   final Int64List colHashes;
+
+  /// The row hashes
   final Int64List rowHashes;
 
   @override
@@ -227,6 +264,7 @@ class Gg2dList<V> {
   // ######################
 
   // ...........................................................................
+  /// A special constructor only used by derived classes
   factory Gg2dList.special({
     required List<V> Function(int length) createBuffer,
     required List<V> Function(List<V>) copyBuffer,
@@ -263,14 +301,9 @@ class Gg2dList<V> {
     );
 
     // Calculate hashes
-    final rowHashes = Int64List(rowCount);
-    final colHashes = Int64List(colCount);
-
-    updateAllHashes(
+    final (rowHashes, colHashes) = calculateRowAndColHashes(
       data: data,
       dataT: dataT,
-      rowHashes: rowHashes,
-      colHashes: colHashes,
       colCount: colCount,
       rowCount: rowCount,
     );
@@ -283,8 +316,8 @@ class Gg2dList<V> {
       rowHashes: rowHashes,
       colHashes: colHashes,
       hashCode: hashCode,
-      createBuffer: createBuffer,
-      copyBuffer: copyBuffer,
+      createData: createBuffer,
+      copyData: copyBuffer,
       subList: subList,
       rowCount: rowCount,
       colCount: colCount,

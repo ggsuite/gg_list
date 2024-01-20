@@ -136,7 +136,7 @@ void main() {
 
           // Change a value
           const cB = 3;
-          final after = before.copyWithValue(cB, cB * 2);
+          final after = before.setValue(cB, cB * 2);
           expect(after.value(cB), cB * 2);
 
           // Objects should not be equal
@@ -146,7 +146,7 @@ void main() {
           expect(before.hashCode, isNot(after.hashCode));
 
           // Revert Change
-          final reverted = after.copyWithValue(
+          final reverted = after.setValue(
             cB,
             before.value(cB),
           );
@@ -172,16 +172,6 @@ void main() {
           final list = GgIntList.fromList([0, 1, 2, 3], min: 0, max: 10);
 
           expect(list.data, [0, 1, 2, 3]);
-          expect(list.data, isA<Uint8List>());
-        });
-      });
-
-      // #######################################################################
-      group('fromIntList(values, min, max)', () {
-        test('should create an list with values', () {
-          final list = GgIntList.fromIntList(exampleGgIntList);
-
-          expect(list.data, exampleGgIntList.data);
           expect(list.data, isA<Uint8List>());
         });
       });

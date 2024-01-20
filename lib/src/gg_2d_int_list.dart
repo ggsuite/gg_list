@@ -10,15 +10,17 @@ import 'gg_2d_list.dart';
 import 'int_list_factory.dart';
 
 // #############################################################################
+/// Effectively manages 2d ints as native arrays
 class Gg2dIntList extends Gg2dList<int> {
+  /// The default constructor
   const Gg2dIntList({
     required super.data,
     required super.dataT,
     required super.colHashes,
     required super.rowHashes,
     required super.hashCode,
-    required super.createBuffer,
-    required super.copyBuffer,
+    required super.createData,
+    required super.copyData,
     required super.subList,
     required super.rowCount,
     required super.colCount,
@@ -31,6 +33,13 @@ class Gg2dIntList extends Gg2dList<int> {
   // ######################
 
   // ...........................................................................
+  /// Generates a 2d list
+  ///
+  /// - [createValue] - A callback creating the value for a given row/col
+  /// - [min] - The minimum value an array item can have
+  /// - [max] - The maximum value an array item can have
+  /// - [rowCount] - The number of rows
+  /// - [colCount] - The number of columns
   factory Gg2dIntList.generate({
     required int Function(int col, int row)? createValue,
     required int min,
@@ -51,7 +60,10 @@ class Gg2dIntList extends Gg2dList<int> {
   // ######################
 
   // ...........................................................................
+  /// The minimum allowed value
   final int min;
+
+  /// The maximum allowed value
   final int max;
 
   // ######################
@@ -97,8 +109,8 @@ class Gg2dIntList extends Gg2dList<int> {
       rowHashes: result.rowHashes,
       colHashes: result.colHashes,
       hashCode: result.hashCode,
-      createBuffer: result.createBuffer,
-      copyBuffer: result.copyBuffer,
+      createData: result.createData,
+      copyData: result.copyData,
       subList: result.subList,
       rowCount: result.rowCount,
       colCount: result.colCount,
