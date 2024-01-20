@@ -45,6 +45,20 @@ class GgIntList extends GgList<int> {
       );
 
   // ...........................................................................
+  /// Derived classes can use this constructor to initialize itself based on a
+  /// GgIntList.
+  GgIntList.fromIntList(GgIntList intList)
+      : min = intList.min,
+        max = intList.max,
+        super(
+          data: intList.data,
+          hashCode: intList.hashCode,
+          createData: intList.createData,
+          copyData: intList.copyData,
+          createSubList: intList.createSubList,
+        );
+
+  // ...........................................................................
   /// Creates a GgIntList from a createValue method
   factory GgIntList.generate({
     required int Function(int i)? createValue,

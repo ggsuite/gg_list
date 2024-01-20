@@ -50,6 +50,17 @@ class GgList<T> {
         fill: values[0],
       );
 
+  // ...........................................................................
+  /// Derived classes can use this constructor to initialize itself based
+  /// on a GgList
+  GgList.fromGgList(
+    GgList<T> list,
+  )   : data = list.data,
+        hashCode = list.hashCode,
+        createData = list.createData,
+        copyData = list.copyData,
+        createSubList = list.createSubList;
+
   // ######################
   // Copy & modify
   // ######################

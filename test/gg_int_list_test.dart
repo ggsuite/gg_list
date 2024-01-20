@@ -177,6 +177,16 @@ void main() {
       });
 
       // #######################################################################
+      group('fromIntList(values, min, max)', () {
+        test('should create an list with values', () {
+          final list = GgIntList.fromIntList(exampleGgIntList);
+
+          expect(list.data, exampleGgIntList.data);
+          expect(list.data, isA<Uint8List>());
+        });
+      });
+
+      // #######################################################################
       test('operator[]', () {
         expect(exampleGgIntList[0], 0);
         expect(exampleGgIntList[5], 5);

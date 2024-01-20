@@ -31,6 +31,15 @@ void main() {
     });
 
     // #########################################################################
+    group('fromGgList(values)', () {
+      test('should work', () {
+        final strList = GgList.fromList(['1', '2', '3']);
+        final strList2 = GgList.fromGgList(strList);
+        expect(strList2.data, ['1', '2', '3']);
+      });
+    });
+
+    // #########################################################################
     group('transform(i,v)', () {
       test('Should create a new transformed list', () {
         // Create a list
