@@ -10,6 +10,7 @@ import 'package:args/args.dart';
 
 bool hasErrors = false;
 bool verbose = true;
+bool printAnnouncement = false;
 final errorMessages = <String>[];
 
 // .............................................................................
@@ -17,14 +18,14 @@ void printResult({
   required String message,
   required bool success,
 }) {
-  var carriageReturn = '\x1b[1A\x1b[2K';
+  var carriageReturn = printAnnouncement ? '\x1b[1A\x1b[2K' : '';
   var icon = success ? '✅' : '❌';
   print('$carriageReturn$icon $message');
 }
 
 // .............................................................................
 Future<bool> check({required String command, String? message}) async {
-  print('⌛️ $message ...');
+  if (printAnnouncement) print('⌛️ $message ...');
   final parts = command.split(' ');
   final cmd = parts.first;
   final List<String> arguments = parts.length > 1 ? parts.sublist(1) : [];
@@ -97,5 +98,5 @@ Future<int> main(List<String> arguments) async {
   print('');
   print(resultMessage);
   print('');
-  return hasErrors ? 1 : 0;
+  exit(hasErrors ? 1 : 0);
 }
