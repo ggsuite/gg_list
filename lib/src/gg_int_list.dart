@@ -9,9 +9,9 @@ import 'dart:typed_data';
 import 'gg_list.dart';
 import 'int_list_factory.dart';
 
-class GgIntlist extends GgList<int> {
+class GgIntList extends GgList<int> {
   // ...........................................................................
-  const GgIntlist({
+  const GgIntList({
     required super.data,
     required super.hashCode,
     required super.createBuffer,
@@ -26,7 +26,7 @@ class GgIntlist extends GgList<int> {
   final int max;
 
   // ...........................................................................
-  GgIntlist.fromIntList(GgIntlist intList)
+  GgIntList.fromIntList(GgIntList intList)
       : min = intList.min,
         max = intList.max,
         super(
@@ -38,12 +38,12 @@ class GgIntlist extends GgList<int> {
         );
 
   // ...........................................................................
-  factory GgIntlist.fromList(
+  factory GgIntList.fromList(
     List<int> values, {
     required int min,
     required int max,
   }) =>
-      GgIntlist.generate(
+      GgIntList.generate(
         createValue: (i) => values[i],
         length: values.length,
         min: min,
@@ -51,18 +51,18 @@ class GgIntlist extends GgList<int> {
       );
 
   // ...........................................................................
-  factory GgIntlist.generate({
+  factory GgIntList.generate({
     required int Function(int i)? createValue,
     required int length,
     required int min,
     required int max,
   }) =>
-      GgIntlist._generate(createValue, length, min, max);
+      GgIntList._generate(createValue, length, min, max);
 
   // ...........................................................................
   @override
-  GgIntlist transform(int Function(int i, int val) transform) {
-    return GgIntlist.generate(
+  GgIntList transform(int Function(int i, int val) transform) {
+    return GgIntList.generate(
       createValue: (i) => transform(i, value(i)),
       length: data.length,
       min: min,
@@ -71,7 +71,7 @@ class GgIntlist extends GgList<int> {
   }
 
   // ...........................................................................
-  GgIntlist operator +(GgIntlist other) =>
+  GgIntList operator +(GgIntList other) =>
       transform((i, val) => val + other.data[i]);
 
   // ######################
@@ -79,7 +79,7 @@ class GgIntlist extends GgList<int> {
   // ######################
 
   // ...........................................................................
-  factory GgIntlist._generate(
+  factory GgIntList._generate(
     int Function(int i)? createValue,
     int length,
     int min,
@@ -105,7 +105,7 @@ class GgIntlist extends GgList<int> {
             },
     );
 
-    return GgIntlist(
+    return GgIntList(
       data: result.data,
       hashCode: result.hashCode,
       createBuffer: result.createBuffer,
@@ -118,7 +118,7 @@ class GgIntlist extends GgList<int> {
 }
 
 // #############################################################################
-final exampleGgIntList = GgIntlist.generate(
+final exampleGgIntList = GgIntList.generate(
   createValue: (i) => i,
   length: 8,
   min: 0,

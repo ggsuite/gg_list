@@ -22,13 +22,13 @@ void main() {
       required int max,
     }) {
       final range = max - min + 1;
-      final s = GgIntlist.generate(
+      final s = GgIntList.generate(
         length: numRows,
         createValue: (i) => min + (i++ % range),
         min: min,
         max: max,
       );
-      expect(s, isA<GgIntlist>());
+      expect(s, isA<GgIntList>());
       expect(s.data, isA<T>());
       expect(s.data[0], min);
       expect(s.data[5], min + 5);
@@ -71,7 +71,7 @@ void main() {
           // Is on upper bound -> no throw
           expect(
             () {
-              GgIntlist.generate(
+              GgIntList.generate(
                 length: numRows,
                 createValue: (i) => max,
                 min: min,
@@ -84,7 +84,7 @@ void main() {
           // Is on lower bound -> no throw
           expect(
             () {
-              GgIntlist.generate(
+              GgIntList.generate(
                 length: numRows,
                 createValue: (i) => min,
                 min: min,
@@ -97,7 +97,7 @@ void main() {
           // Exceeds uppber bound
           expect(
             () {
-              GgIntlist.generate(
+              GgIntList.generate(
                 length: numRows,
                 createValue: (i) => max + 1,
                 min: min,
@@ -110,7 +110,7 @@ void main() {
           // Exceeds lower bound
           expect(
             () {
-              GgIntlist.generate(
+              GgIntList.generate(
                 length: numRows,
                 createValue: (i) => min - 1,
                 min: min,
@@ -122,7 +122,7 @@ void main() {
         });
 
         test('should work fine', () {
-          final before = GgIntlist.generate(
+          final before = GgIntList.generate(
             length: numRows,
             createValue: (i) => i,
             min: 0,
@@ -169,7 +169,7 @@ void main() {
       // #######################################################################
       group('fromList(values, min, max)', () {
         test('should create an list with values', () {
-          final list = GgIntlist.fromList([0, 1, 2, 3], min: 0, max: 10);
+          final list = GgIntList.fromList([0, 1, 2, 3], min: 0, max: 10);
 
           expect(list.data, [0, 1, 2, 3]);
           expect(list.data, isA<Uint8List>());
@@ -179,7 +179,7 @@ void main() {
       // #######################################################################
       group('fromIntList(values, min, max)', () {
         test('should create an list with values', () {
-          final list = GgIntlist.fromIntList(exampleGgIntList);
+          final list = GgIntList.fromIntList(exampleGgIntList);
 
           expect(list.data, exampleGgIntList.data);
           expect(list.data, isA<Uint8List>());
@@ -197,7 +197,7 @@ void main() {
     group('transform(i,v)', () {
       test('Should create a new transformed list', () {
         // Create a list
-        final list = GgIntlist.generate(
+        final list = GgIntList.generate(
           createValue: (i) => i,
           length: 3,
           min: 0,
@@ -216,8 +216,8 @@ void main() {
     // #########################################################################
     group('operator=', () {
       test('should add two arrays', () {
-        final a = GgIntlist.fromList([0, 1, 2], min: 0, max: 10);
-        final b = GgIntlist.fromList([4, 5, 6], min: 0, max: 10);
+        final a = GgIntList.fromList([0, 1, 2], min: 0, max: 10);
+        final b = GgIntList.fromList([4, 5, 6], min: 0, max: 10);
         final c = a + b;
         expect(c.data, [4, 6, 8]);
       });

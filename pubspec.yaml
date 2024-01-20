@@ -1,6 +1,6 @@
 name: gg_list
 description: GgList - Automatically chose the right native list type
-version: 1.0.0
+version: 1.0.1
 repository: https://github.com/inlavigo/gg_list
 
 environment:
