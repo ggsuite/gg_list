@@ -10,6 +10,19 @@ import 'package:test/test.dart';
 void main() {
   group('GgList', () {
     // #########################################################################
+    group('generate(length, createValue, fill)', () {
+      test('should work fine', () {
+        final list = GgList<int>.generate(
+          length: 5,
+          createValue: (i) => i,
+          fill: 0,
+        );
+
+        expect(list.data, [0, 1, 2, 3, 4]);
+      });
+    });
+
+    // #########################################################################
     group('fromList(values)', () {
       test('should work', () {
         final strList = GgList.fromList(['1', '2', '3']);
