@@ -8,7 +8,7 @@ import 'dart:typed_data';
 
 // .............................................................................
 /// Calculates an fnv1 hash on an list
-int fnv1(List<dynamic> data, [int start = 0, int? end]) {
+int fnv1(Iterable<dynamic> data, [int start = 0, int? end]) {
   const int prime = 16777619;
   int hash = 2166136261; // FNV offset basis
 
@@ -55,7 +55,7 @@ int fnv1(List<dynamic> data, [int start = 0, int? end]) {
 
   // Calculate hashcode
   for (int i = start; i < end; i++) {
-    final val = data[i];
+    final val = data.elementAt(i);
     hash = hash * prime; // Multiply the current hash with the prime
     hash = hash ^
         ((val is Enum)
