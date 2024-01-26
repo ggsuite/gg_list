@@ -84,6 +84,10 @@ class GgIntList extends GgList<int> {
   GgIntList operator +(GgIntList other) =>
       transform((i, val) => val + other.data[i]);
 
+  // ...........................................................................
+  @override
+  String toString() => data.join(', ');
+
   // ######################
   // Private
   // ######################

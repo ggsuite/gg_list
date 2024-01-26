@@ -103,6 +103,13 @@ void main() {
       });
 
       // #######################################################################
+      group('toString()', () {
+        test('should return a comma separated list', () {
+          expect(exampleGgList.toString(), '0, 1, 2, 3, 4, 5, 6, 7');
+        });
+      });
+
+      // #######################################################################
       test('operator[]', () {
         expect(exampleGgList[0], '0');
         expect(exampleGgList[5], '5');

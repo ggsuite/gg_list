@@ -94,5 +94,12 @@ void main() {
         expect(reverted, before);
       });
     });
+
+    // #########################################################################
+    group('toString()', () {
+      test('should return the right string', () {
+        expect(exampleGg2dList.toString(), '0, 1, 1, 2, 2, 3');
+      });
+    });
   });
 }

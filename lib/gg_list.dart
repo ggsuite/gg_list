@@ -7,4 +7,6 @@ export 'src/gg_list.dart';
 export 'src/gg_int_list.dart';
 export 'src/gg_2d_list.dart';
 export 'src/gg_2d_int_list.dart';
+export 'src/gg_row_list.dart';
+export 'src/gg_int_row_list.dart';
 export 'src/fnv1.dart';

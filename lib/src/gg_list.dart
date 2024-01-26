@@ -126,6 +126,10 @@ class GgList<T> {
   /// Returns a sublist
   List<T> subList(int start, int? end) => createSubList(this.data, start, end);
 
+  // ...........................................................................
+  @override
+  String toString() => data.join(', ');
+
   // ###########################
   // Data manipulation delegates
   // ###########################

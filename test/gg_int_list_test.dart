@@ -235,5 +235,12 @@ void main() {
       expect(exampleGgIntList[0], 0);
       expect(exampleGgIntList[5], 5);
     });
+
+    // #########################################################################
+    group('toString()', () {
+      test('should crate the right string', () {
+        expect(exampleGgIntList.toString(), '0, 1, 2, 3, 4, 5, 6, 7');
+      });
+    });
   });
 }

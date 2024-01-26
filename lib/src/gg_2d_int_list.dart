@@ -66,6 +66,10 @@ class Gg2dIntList extends Gg2dList<int> {
   /// The maximum allowed value
   final int max;
 
+  // ...........................................................................
+  @override
+  String toString() => data.join(', ');
+
   // ######################
   // Private
   // ######################
@@ -119,3 +123,13 @@ class Gg2dIntList extends Gg2dList<int> {
     );
   }
 }
+
+// #############################################################################
+/// Example object for test purposes
+final exampleGg2dIntList = Gg2dIntList.generate(
+  colCount: 2,
+  rowCount: 2,
+  min: 0,
+  max: 4,
+  createValue: (col, row) => col + row,
+);

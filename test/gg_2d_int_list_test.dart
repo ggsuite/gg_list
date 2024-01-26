@@ -273,4 +273,11 @@ void main() {
       });
     });
   });
+
+  // #########################################################################
+  group('toString()', () {
+    test('should return the right string', () {
+      expect(exampleGg2dIntList.toString(), '0, 1, 1, 2');
+    });
+  });
 }

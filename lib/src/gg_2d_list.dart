@@ -213,6 +213,10 @@ class Gg2dList<V> {
         dataIndexT(col, 0, rowCount) + rowCount,
       );
 
+  // ...........................................................................
+  @override
+  String toString() => data.join(', ');
+
   // ###########################
   // Data manipulation delegates
   // ###########################
@@ -327,3 +331,12 @@ class Gg2dList<V> {
     return result;
   }
 }
+
+// #############################################################################
+/// Example object for test purposes
+final exampleGg2dList = Gg2dList.generate(
+  colCount: 2,
+  rowCount: 3,
+  fill: 0,
+  createValue: (col, row) => col + row,
+);
