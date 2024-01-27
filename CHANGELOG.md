@@ -1,8 +1,8 @@
 # Change Log
 
-## 1.1.0
+## 1.1.1
 
-- Add `GgRowList` and `GgIntRowList`
+- Add `GgRowList`
 - Add `toString`
 
 ## 1.0.3
