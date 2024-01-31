@@ -51,7 +51,7 @@ class GgIntList extends GgList<int> {
       : min = intList.min,
         max = intList.max,
         super(
-          data: intList.data,
+          data: intList.data as List<int>,
           hashCode: intList.hashCode,
           createData: intList.createData,
           copyData: intList.copyData,
@@ -73,7 +73,7 @@ class GgIntList extends GgList<int> {
   GgIntList transform(int Function(int i, int val) transform) {
     return GgIntList.generate(
       createValue: (i) => transform(i, value(i)),
-      length: data.length,
+      length: length,
       min: min,
       max: max,
     );
@@ -81,12 +81,13 @@ class GgIntList extends GgList<int> {
 
   // ...........................................................................
   /// The plus operator adding the items of two lists together
-  GgIntList operator +(GgIntList other) =>
-      transform((i, val) => val + other.data[i]);
+
+  GgIntList addOneByOne(GgIntList other) =>
+      transform((i, val) => val + other[i]);
 
   // ...........................................................................
   @override
-  String toString() => data.join(', ');
+  String toString() => join(', ');
 
   // ######################
   // Private
@@ -120,7 +121,7 @@ class GgIntList extends GgList<int> {
     );
 
     return GgIntList(
-      data: result.data,
+      data: result.data as List<int>,
       hashCode: result.hashCode,
       createData: result.createData,
       copyData: result.copyData,

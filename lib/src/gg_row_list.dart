@@ -6,8 +6,11 @@
 
 import '../gg_list.dart';
 
+/// A row of values
+typedef GgRow<T> = GgList<T>;
+
 /// A list of rows
-class GgRowList<T> extends GgList<GgList<T>> {
+class GgRowList<T> extends GgList<GgRow<T>> {
   // ...........................................................................
   /// Creates a list of a list of rows
   GgRowList.fromRows(super.rows) : super.fromGgList();
@@ -16,22 +19,29 @@ class GgRowList<T> extends GgList<GgList<T>> {
   /// Generate rows using a delegate
   factory GgRowList.generate({
     required int numRows,
-    required GgList<T> Function(int i) createRow,
+    required GgRow<T> Function(int i) createRow,
   }) {
-    final rows = <GgList<T>>[];
+    final rows = <GgRow<T>>[];
 
     for (int i = 0; i < numRows; i++) {
       final row = createRow(i);
       rows.add(row);
     }
 
-    final ggRows = GgList<GgList<T>>.fromList(rows);
+    final ggRows = GgList<GgRow<T>>.fromList(rows);
     return GgRowList.fromRows(ggRows);
   }
 
   // ...........................................................................
+  /// Returns the value of a given cell
+  T get(int row, int col) => this[row][col];
+
+  /// Returns a given row
+  GgRow<T> row(int row) => this[row];
+
+  // ...........................................................................
   @override
-  String toString() => data.join(' | ');
+  String toString() => join(' | ');
 }
 
 // #############################################################################

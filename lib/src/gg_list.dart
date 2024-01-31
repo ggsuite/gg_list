@@ -5,10 +5,12 @@
 // found in the LICENSE file in the root of this package.
 
 // #############################################################################
+import 'dart:math';
+
 import 'fnv1.dart';
 
 /// A list that can contain multiple arbitrary values
-class GgList<T> {
+class GgList<T> implements List<T> {
   // ######################
   // Constructors
   // ######################
@@ -16,12 +18,12 @@ class GgList<T> {
   // ...........................................................................
   /// The constructor
   const GgList({
-    required this.data,
+    required List<T> data,
     required this.hashCode,
     required this.createData,
     required this.copyData,
     required this.createSubList,
-  });
+  }) : _data = data;
 
   // ...........................................................................
   /// Creates a list of [length] using [createValue] delegate.
@@ -55,7 +57,7 @@ class GgList<T> {
   /// on a GgList
   GgList.fromGgList(
     GgList<T> list,
-  )   : data = list.data,
+  )   : _data = list._data,
         hashCode = list.hashCode,
         createData = list.createData,
         copyData = list.copyData,
@@ -67,7 +69,7 @@ class GgList<T> {
 
   // ...........................................................................
   /// Copies the list and changes the value at index [i]
-  GgList<T> setValue(int i, T value) {
+  GgList<T> copyWithValue(int i, T value) {
     // If nothing has changed, do nothing
     final oldVal = this.value(i);
     if (oldVal == value) {
@@ -75,7 +77,7 @@ class GgList<T> {
     }
 
     // Copy data and hashes
-    final data = copyData(this.data);
+    final data = copyData(this._data);
 
     // Calculate index
     final index = i;
@@ -84,7 +86,7 @@ class GgList<T> {
     data[index] = value;
 
     // Update hashes
-    final hashCode = fnv1(data, 0, this.data.length);
+    final hashCode = fnv1(data, 0, this._data.length);
 
     // Create a new object
     return GgList<T>(
@@ -101,11 +103,11 @@ class GgList<T> {
   GgList<T> transform(T Function(int i, T val) transform) {
     return _generate(
       createValue: (i) {
-        return transform(i, data[i]);
+        return transform(i, _data[i]);
       },
       copyBuffer: copyData,
       createBuffer: createData,
-      length: data.length,
+      length: _data.length,
       subList: createSubList,
     );
   }
@@ -116,19 +118,20 @@ class GgList<T> {
 
   // ...........................................................................
   /// Returns the list value at index [i]
-  T value(int i) => data[i];
+  T value(int i) => _data[i];
 
   // ...........................................................................
   /// Returns the list value at index [i]
-  T operator [](int i) => data[i];
+  @override
+  T operator [](int i) => _data[i];
 
   // ...........................................................................
   /// Returns a sublist
-  List<T> subList(int start, int? end) => createSubList(this.data, start, end);
+  List<T> subList(int start, int? end) => createSubList(this._data, start, end);
 
   // ...........................................................................
   @override
-  String toString() => data.join(', ');
+  String toString() => _data.join(', ');
 
   // ###########################
   // Data manipulation delegates
@@ -148,10 +151,6 @@ class GgList<T> {
   // Data
   // ######################
 
-  // ...........................................................................
-  /// The actual data of the list
-  final List<T> data;
-
   /// The hashcode representing the content of all elements
   @override
   final int hashCode;
@@ -163,8 +162,219 @@ class GgList<T> {
   }
 
   // ######################
+  // List methods
+  // ######################
+
+  // coverage:ignore-start
+
+  @override
+  Iterator<T> get iterator => _data.iterator;
+
+  @override
+  bool any(bool Function(T element) test) => _data.any(test);
+
+  @override
+  List<R> cast<R>() => _data.cast<R>();
+
+  @override
+  bool contains(Object? element) => _data.contains(element);
+
+  @override
+  T elementAt(int index) => _data.elementAt(index);
+
+  @override
+  bool every(bool Function(T element) test) => _data.every(test);
+
+  @override
+  Iterable<T> followedBy(Iterable<T> other) => _data.followedBy(other);
+
+  @override
+  void forEach(void Function(T element) action) => _data.forEach(action);
+
+  @override
+  String join([String separator = '']) => _data.join(separator);
+
+  @override
+  T get last => _data.last;
+
+  @override
+  T lastWhere(bool Function(T element) test, {T Function()? orElse}) =>
+      _data.lastWhere(test, orElse: orElse);
+
+  @override
+  Iterable<R> map<R>(R Function(T e) f) => _data.map(f);
+
+  @override
+  T reduce(T Function(T value, T element) combine) => _data.reduce(combine);
+
+  @override
+  T get single => _data.single;
+
+  @override
+  T singleWhere(bool Function(T element) test, {T Function()? orElse}) =>
+      _data.singleWhere(test, orElse: orElse);
+
+  @override
+  Iterable<T> skip(int count) => _data.skip(count);
+
+  @override
+  Iterable<T> skipWhile(bool Function(T value) test) => _data.skipWhile(test);
+
+  @override
+  Iterable<T> take(int count) => _data.take(count);
+
+  @override
+  Iterable<T> takeWhile(bool Function(T value) test) => _data.takeWhile(test);
+
+  @override
+  List<T> toList({bool growable = true}) => _data.toList(growable: growable);
+
+  @override
+  Set<T> toSet() => _data.toSet();
+
+  @override
+  Iterable<T> where(bool Function(T element) test) => _data.where(test);
+
+  @override
+  Iterable<R> whereType<R>() => _data.whereType<R>();
+
+  @override
+  bool get isEmpty => _data.isEmpty;
+
+  @override
+  bool get isNotEmpty => _data.isNotEmpty;
+
+  @override
+  Iterable<R> expand<R>(Iterable<R> Function(T element) f) => _data.expand(f);
+
+  @override
+  T firstWhere(bool Function(T element) test, {T Function()? orElse}) =>
+      _data.firstWhere(test, orElse: orElse);
+
+  @override
+  R fold<R>(R initialValue, R Function(R previousValue, T element) combine) =>
+      _data.fold(initialValue, combine);
+
+  @override
+  T get first => _data.first;
+
+  @override
+  int get length => _data.length;
+
+  UnsupportedError get _immutableError =>
+      UnsupportedError('This list is immutable.');
+
+  @override
+  void operator []=(int index, T value) => throw _immutableError;
+
+  @override
+  set first(T value) => throw _immutableError;
+
+  @override
+  set last(T value) => throw _immutableError;
+
+  @override
+  set length(int newLength) => throw _immutableError;
+
+  @override
+  void add(T value) => throw _immutableError;
+
+  @override
+  void addAll(Iterable<T> iterable) => throw _immutableError;
+
+  @override
+  Iterable<T> get reversed => _data.reversed;
+
+  @override
+  void sort([int Function(T a, T b)? compare]) => throw _immutableError;
+
+  @override
+  void shuffle([Random? random]) => throw _immutableError;
+
+  @override
+  int indexOf(T element, [int start = 0]) => _data.indexOf(element, start);
+
+  @override
+  int indexWhere(bool Function(T element) test, [int start = 0]) =>
+      _data.indexWhere(test, start);
+
+  @override
+  int lastIndexWhere(bool Function(T element) test, [int? start]) =>
+      _data.lastIndexWhere(test, start);
+
+  @override
+  int lastIndexOf(T element, [int? start]) => _data.lastIndexOf(element, start);
+
+  @override
+  void clear() => throw _immutableError;
+
+  @override
+  void insert(int index, T element) => throw _immutableError;
+
+  @override
+  void insertAll(int index, Iterable<T> iterable) => throw _immutableError;
+
+  @override
+  void setAll(int index, Iterable<T> iterable) => throw _immutableError;
+
+  @override
+  bool remove(Object? value) => throw _immutableError;
+
+  @override
+  T removeAt(int index) => throw _immutableError;
+
+  @override
+  T removeLast() => throw _immutableError;
+
+  @override
+  void removeWhere(bool Function(T element) test) => throw _immutableError;
+
+  @override
+  void retainWhere(bool Function(T element) test) => throw _immutableError;
+
+  @override
+  List<T> operator +(List<T> other) => _data + other;
+
+  @override
+  List<T> sublist(int start, [int? end]) => _data.sublist(start, end);
+
+  @override
+  Iterable<T> getRange(int start, int end) => _data.getRange(start, end);
+
+  @override
+  void setRange(
+    int start,
+    int end,
+    Iterable<T> iterable, [
+    int skipCount = 0,
+  ]) =>
+      throw _immutableError;
+
+  @override
+  void removeRange(int start, int end) => throw _immutableError;
+
+  @override
+  void fillRange(int start, int end, [T? fillValue]) => throw _immutableError;
+
+  @override
+  void replaceRange(int start, int end, Iterable<T> replacements) =>
+      throw _immutableError;
+
+  @override
+  Map<int, T> asMap() => _data.asMap();
+
+  // coverage:ignore-end
+
+  // ######################
   // Private
   // ######################
+
+  // ...........................................................................
+  /// The actual data of the list
+  final List<T> _data;
+
+  /// Returns the actual data of the list
+  Iterable<T> get data => _data;
 
   // ...........................................................................
   /// Only used by derived classes

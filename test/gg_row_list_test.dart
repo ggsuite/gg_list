@@ -14,7 +14,7 @@ void main() {
     // #########################################################################
     group('exampleGgRowList', () {
       test('should work fine', () {
-        expect(ggRowList.data, [
+        expect(ggRowList, [
           GgList.fromList([0, 1, 2]),
           GgList.fromList([0, 1, 2]),
           GgList.fromList([0, 1, 2]),
@@ -41,7 +41,7 @@ void main() {
           },
         );
 
-        expect(rowList.data, [
+        expect(rowList, [
           GgList.fromList(['0-0', '1-0']),
           GgList.fromList(['0-1', '1-1']),
         ]);
@@ -61,6 +61,31 @@ void main() {
     // #########################################################################
     group('hashCode', () {
       test('should return the right hashCode', () {});
+    });
+
+    // #########################################################################
+    group('get(row, col)', () {
+      test('should return the right value', () {
+        expect(exampleGgRowList.get(0, 0), 0);
+        expect(exampleGgRowList.get(0, 1), 1);
+        expect(exampleGgRowList.get(0, 2), 2);
+        expect(exampleGgRowList.get(1, 0), 0);
+        expect(exampleGgRowList.get(1, 1), 1);
+        expect(exampleGgRowList.get(1, 2), 2);
+        expect(exampleGgRowList.get(2, 0), 0);
+        expect(exampleGgRowList.get(2, 1), 1);
+        expect(exampleGgRowList.get(2, 2), 2);
+      });
+    });
+
+    // #########################################################################
+    group('row(row)', () {
+      test('should return the right row', () {
+        expect(exampleGgRowList.row(0), [0, 1, 2]);
+        expect(exampleGgRowList.row(1), [0, 1, 2]);
+        expect(exampleGgRowList.row(2), [0, 1, 2]);
+        expect(exampleGgRowList.row(3), [0, 1, 2]);
+      });
     });
   });
 }

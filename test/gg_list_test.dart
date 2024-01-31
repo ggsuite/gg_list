@@ -18,7 +18,7 @@ void main() {
           fill: 0,
         );
 
-        expect(list.data, [0, 1, 2, 3, 4]);
+        expect(list, [0, 1, 2, 3, 4]);
       });
     });
 
@@ -26,7 +26,7 @@ void main() {
     group('fromList(values)', () {
       test('should work', () {
         final strList = GgList.fromList(['1', '2', '3']);
-        expect(strList.data, ['1', '2', '3']);
+        expect(strList, ['1', '2', '3']);
       });
     });
 
@@ -35,7 +35,7 @@ void main() {
       test('should work', () {
         final strList = GgList.fromList(['1', '2', '3']);
         final strList2 = GgList.fromGgList(strList);
-        expect(strList2.data, ['1', '2', '3']);
+        expect(strList2, ['1', '2', '3']);
       });
     });
 
@@ -48,13 +48,13 @@ void main() {
           createValue: (i) => i,
           length: 3,
         );
-        expect(list.data, [0, 1, 2]);
+        expect(list, [0, 1, 2]);
 
         // Transform that list
         final transformedList = list.transform(
           (i, val) => i * val + 10,
         );
-        expect(transformedList.data, [10, 11, 14]);
+        expect(transformedList, [10, 11, 14]);
       });
     });
 
@@ -73,7 +73,7 @@ void main() {
 
         // Change a value
         const cB = 0;
-        final after = before.setValue(cB, 'changed');
+        final after = before.copyWithValue(cB, 'changed');
         expect(after.value(cB), 'changed');
 
         // Objects should not be equal
@@ -83,7 +83,7 @@ void main() {
         expect(before.hashCode, isNot(after.hashCode));
 
         // Revert Change
-        final reverted = after.setValue(
+        final reverted = after.copyWithValue(
           cB,
           before.value(cB),
         );
