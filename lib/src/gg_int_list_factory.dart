@@ -6,6 +6,8 @@
 
 import 'dart:typed_data';
 
+import '../gg_list.dart';
+
 /// Helps to create Uint8List, Int8List, Uint16List, Int16List, ... depending
 /// on a given value range.
 class GgIntListFactory {
@@ -30,54 +32,6 @@ class GgIntListFactory {
   List<int> sublistView(TypedData buffer, int start, int? end) =>
       _sublistView[type]!(buffer, start, end);
 
-  // ...........................................................................
-  // Ranges
-
-  /// The minimum value for uint8
-  static const uint8Min = 0;
-
-  /// The minimum value for uint16
-  static const uint16Min = 0;
-
-  /// The minimum value for uint32
-  static const uint32Min = 0;
-
-  /// The minimum value for uint64
-  static const uint64Min = 0;
-
-  /// The minimum value for int8
-  static const int8Min = -128;
-
-  /// The minimum value for int16
-  static const int16Min = -32768;
-
-  /// The minimum value for int32
-  static const int32Min = -2147483648;
-
-  /// The minimum value for int64
-  static const int64Min = -9223372036854775808;
-
-  /// The maximum value for uint8
-  static const uint8Max = 0xFF;
-
-  /// The maximum value for uint16
-  static const uint16Max = 0xFFFF;
-
-  /// The maximum value for uint32
-  static const uint32Max = 0xFFFFFFFF;
-
-  /// The maximum value for int8
-  static const int8Max = 127;
-
-  /// The maximum value for int16
-  static const int16Max = 32767;
-
-  /// The maximum value for int32
-  static const int32Max = 2147483647;
-
-  /// The maximum value for int64
-  static const int64Max = 9223372036854775807;
-
   // ######################
   // Private
   // ######################
@@ -86,14 +40,14 @@ class GgIntListFactory {
   static Type _type({required int min, required int max}) {
     final type = switch ([min, max]) {
       // Uint
-      [>= uint8Min, <= uint8Max] => Uint8List,
-      [>= uint16Min, <= uint16Max] => Uint16List,
-      [>= uint32Min, <= uint32Max] => Uint32List,
+      [>= GgRanges.uint8Min, <= GgRanges.uint8Max] => Uint8List,
+      [>= GgRanges.uint16Min, <= GgRanges.uint16Max] => Uint16List,
+      [>= GgRanges.uint32Min, <= GgRanges.uint32Max] => Uint32List,
 
       // Int
-      [>= int8Min, <= int8Max] => Int8List,
-      [>= int16Min, <= int16Max] => Int16List,
-      [>= int32Min, <= int32Max] => Int32List,
+      [>= GgRanges.int8Min, <= GgRanges.int8Max] => Int8List,
+      [>= GgRanges.int16Min, <= GgRanges.int16Max] => Int16List,
+      [>= GgRanges.int32Min, <= GgRanges.int32Max] => Int32List,
       _ => Int64List,
     };
 

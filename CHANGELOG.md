@@ -1,8 +1,9 @@
 # Change Log
 
-## 1.2.1
+## 1.2.2
 
 - Make `GgIntListFactory` public
+- Add `GgRanges`
 
 ## 1.2.0
 
