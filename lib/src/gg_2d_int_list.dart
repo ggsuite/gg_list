@@ -6,8 +6,7 @@
 
 import 'dart:typed_data';
 
-import 'gg_2d_list.dart';
-import 'int_list_factory.dart';
+import '../gg_list.dart';
 
 // #############################################################################
 /// Effectively manages 2d ints as native arrays
@@ -82,7 +81,7 @@ class Gg2dIntList extends Gg2dList<int> {
     required int min,
     required int max,
   }) {
-    final naf = IntListFactory(min: min, max: max);
+    final naf = GgIntListFactory(min: min, max: max);
 
     // Generate a basic list
     final result = Gg2dList<int>.special(

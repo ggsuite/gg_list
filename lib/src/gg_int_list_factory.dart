@@ -8,9 +8,9 @@ import 'dart:typed_data';
 
 /// Helps to create Uint8List, Int8List, Uint16List, Int16List, ... depending
 /// on a given value range.
-class IntListFactory {
+class GgIntListFactory {
   /// Creates a factory for lists with values between [min] and [max]
-  IntListFactory({required int min, required int max})
+  GgIntListFactory({required int min, required int max})
       : type = _type(min: min, max: max);
 
   // ...........................................................................

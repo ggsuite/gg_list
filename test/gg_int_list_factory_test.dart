@@ -6,7 +6,7 @@
 
 import 'dart:typed_data';
 
-import 'package:gg_list/src/int_list_factory.dart';
+import 'package:gg_list/gg_list.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -15,7 +15,7 @@ void main() {
     test('should allow to create native int lists depending on a value range',
         () {
       // Uint8List
-      final uint8ListFactory = IntListFactory(min: 0, max: 128);
+      final uint8ListFactory = GgIntListFactory(min: 0, max: 128);
       expect(uint8ListFactory.type, Uint8List);
       final uint8ListBuffer = uint8ListFactory.createBuffer(3);
       expect(uint8ListBuffer, [0, 0, 0]);
@@ -28,7 +28,7 @@ void main() {
       expect(uint8SubList, [1, 2]);
 
       // Uint16List
-      final uint16ListFactory = IntListFactory(
+      final uint16ListFactory = GgIntListFactory(
         min: 0,
         max: 32767,
       );
@@ -45,7 +45,7 @@ void main() {
       expect(uint16SubList, [1, 2]);
 
       // Uint32List
-      final uint32ListFactory = IntListFactory(
+      final uint32ListFactory = GgIntListFactory(
         min: 0,
         max: 2147483647,
       );
@@ -62,7 +62,7 @@ void main() {
       expect(uint32SubList, [1, 2]);
 
       // Int8List
-      final int8ListFactory = IntListFactory(
+      final int8ListFactory = GgIntListFactory(
         min: -128,
         max: 127,
       );
@@ -78,7 +78,7 @@ void main() {
       expect(int8SubList, [1, 2]);
 
       // Int16List
-      final int16ListFactory = IntListFactory(
+      final int16ListFactory = GgIntListFactory(
         min: -32768,
         max: 32767,
       );
@@ -94,7 +94,7 @@ void main() {
       expect(int16SubList, [1, 2]);
 
       // Int32List
-      final int32ListFactory = IntListFactory(
+      final int32ListFactory = GgIntListFactory(
         min: -2147483648,
         max: -2147483647,
       );
@@ -110,7 +110,7 @@ void main() {
       expect(int32SubList, [1, 2]);
 
       // Int64List
-      final int64ListFactory = IntListFactory(
+      final int64ListFactory = GgIntListFactory(
         min: -9223372036854775808,
         max: -9223372036854775807,
       );

@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.2.1
+
+- Make `GgIntListFactory` public
+
 ## 1.2.0
 
 - `GgList` implements `List`

@@ -6,8 +6,7 @@
 
 import 'dart:typed_data';
 
-import 'gg_list.dart';
-import 'int_list_factory.dart';
+import '../gg_list.dart';
 
 /// A list implementation that manages ints lists internally as native arrays
 class GgIntList extends GgList<int> {
@@ -100,7 +99,7 @@ class GgIntList extends GgList<int> {
     int min,
     int max,
   ) {
-    final naf = IntListFactory(min: min, max: max);
+    final naf = GgIntListFactory(min: min, max: max);
 
     // Generate the int list
     final result = GgList<int>.special(
