@@ -19,6 +19,7 @@ void main() {
         );
 
         expect(list, [0, 1, 2, 3, 4]);
+        expect(list.data, [0, 1, 2, 3, 4]);
       });
     });
 

@@ -54,3 +54,6 @@ class GgRanges {
   /// The maximum value for int64
   static const int64Max = 9223372036854775807;
 }
+
+/// Example instance of GgRanges for testing
+GgRanges get exampleGgRanges => GgRanges();

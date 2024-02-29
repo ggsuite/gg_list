@@ -113,14 +113,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "9.0.1"
-  dart_style:
-    dependency: transitive
-    description:
-      name: dart_style
-      sha256: "40ae61a5d43feea6d24bd22c0537a6629db858963b99b4bc1c3db80676f32368"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.3.4"
   file:
     dependency: transitive
     description:
@@ -137,51 +129,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.2.0"
-  gg:
+  gg_capture_print:
     dependency: "direct dev"
     description:
-      path: "."
-      ref: HEAD
-      resolved-ref: "6cf0667e08f3c23a9b53379e2702d209420cd4ca"
-      url: "https://github.com/inlavigo/gg.git"
-    source: git
-    version: "1.0.0"
+      name: gg_capture_print
+      sha256: "4c13ab41bf55eb308784c9d8db9237cae991c94dfc26f3317fd83a58f1539d45"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.2"
   gg_check:
-    dependency: transitive
+    dependency: "direct dev"
     description:
-      path: "."
-      ref: HEAD
-      resolved-ref: "4462dad637e30a511a9c47ede4e16e59675de28d"
-      url: "git@github.com:inlavigo/gg_check.git"
-    source: git
-    version: "1.0.0"
-  gg_cli_cc:
-    dependency: transitive
-    description:
-      path: "."
-      ref: HEAD
-      resolved-ref: b8262f0ae581eae8c35a06db1884b15904b519b5
-      url: "git@github.com:inlavigo/gg_cli_cc.git"
-    source: git
-    version: "1.0.0"
-  gg_cli_cp:
-    dependency: transitive
-    description:
-      path: "."
-      ref: HEAD
-      resolved-ref: e82d24487eb9044a8af48031c7ca5e159a4d5b18
-      url: "git@github.com:inlavigo/gg_cli_cp.git"
-    source: git
-    version: "1.0.0"
-  gg_kidney:
-    dependency: transitive
-    description:
-      path: "."
-      ref: HEAD
-      resolved-ref: dcc9c459af61a7650e0b765d59af240270cd5676
-      url: "git@github.com:inlavigo/gg_kidney.git"
-    source: git
-    version: "1.0.0"
+      name: gg_check
+      sha256: "1a46bbe9062192b2c98a7fdaa82c2e7b4576fa5ae58c50aaacc3c3d4c4f99b99"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.2"
   glob:
     dependency: transitive
     description:
@@ -314,10 +277,10 @@ packages:
     dependency: "direct dev"
     description:
       name: pana
-      sha256: ffe9ff001c2c05c972510410e810d55961190ccdadfc25bbb9660d72b090e07b
+      sha256: "56f1e0d448bd2910c0a16b64d4de4044833b8f7b9181122ebdf960e0a70f314f"
       url: "https://pub.dev"
     source: hosted
-    version: "0.22.1"
+    version: "0.22.2"
   path:
     dependency: transitive
     description:
@@ -506,10 +469,10 @@ packages:
     dependency: transitive
     description:
       name: vm_service
-      sha256: a2662fb1f114f4296cf3f5a50786a2d888268d7776cf681aa17d660ffa23b246
+      sha256: e7d5ecd604e499358c5fe35ee828c0298a320d54455e791e9dcf73486bc8d9f0
       url: "https://pub.dev"
     source: hosted
-    version: "14.0.0"
+    version: "14.1.0"
   watcher:
     dependency: transitive
     description:
@@ -550,13 +513,5 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.1.2"
-  yaml_edit:
-    dependency: transitive
-    description:
-      name: yaml_edit
-      sha256: c566f4f804215d84a7a2c377667f546c6033d5b34b4f9e60dfb09d17c4e97826
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.2.0"
 sdks:
-  dart: ">=3.4.0-120.0.dev <4.0.0"
+  dart: ">=3.3.0 <4.0.0"
