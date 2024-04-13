@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.2.6] - 2024-04-13
+
+### Changed
+
+- Adjusted version
+
 ## [1.2.5] - 2024-04-13
 
 ### Changed
@@ -45,6 +51,7 @@
 
 - Initial version.
 
+[1.2.6]: https://github.com/inlavigo/gg_list/compare/1.2.5...1.2.6
 [1.2.5]: https://github.com/inlavigo/gg_list/compare/1.2.4...1.2.5
 [1.2.4]: https://github.com/inlavigo/gg_list/compare/1.2.3...1.2.4
 [1.2.3]: https://github.com/inlavigo/gg_list/compare/1.2.2...1.2.3
