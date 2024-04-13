@@ -1,11 +1,12 @@
 # Changelog
 
-## Unreleased
+## [Unreleased]
 
 ### Changed
 
 - Adjusted version
 - Remove pubspec.lock from committed files
+- ignore pubspec lock
 
 ## [1.2.5] - 2024-04-13
 
@@ -15,7 +16,7 @@
 
 ### Removed
 
-- dependency to gg_install_gg, remove ./check script
+- dependency to gg\_install\_gg, remove ./check script
 - dependency pana
 
 ## [1.2.4] - 2024-04-09
@@ -52,6 +53,7 @@
 
 - Initial version.
 
+[Unreleased]: https://github.com/inlavigo/gg_list/compare/1.2.5...HEAD
 [1.2.5]: https://github.com/inlavigo/gg_list/compare/1.2.4...1.2.5
 [1.2.4]: https://github.com/inlavigo/gg_list/compare/1.2.3...1.2.4
 [1.2.3]: https://github.com/inlavigo/gg_list/compare/1.2.2...1.2.3
