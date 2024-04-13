@@ -93,10 +93,10 @@ packages:
     dependency: "direct dev"
     description:
       name: gg_capture_print
-      sha256: b9edae126c4b0f70733417677b0a32dc4f2e226f87dedd13dee7f4f0e56d938b
+      sha256: a1a4856a7ea2b11482ad5233febab72e541b4545af2c1229a425605b8036983c
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.8"
+    version: "1.0.9"
   glob:
     dependency: transitive
     description:
