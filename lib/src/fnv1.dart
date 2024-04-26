@@ -61,7 +61,7 @@ int fnv1(Iterable<dynamic> data, [int start = 0, int? end]) {
         ((val is Enum)
             ? val.name.hashCode
             : val is int
-                ? val
+                ? val + prime
                 : val.hashCode); // XOR with the current data
   }
 
