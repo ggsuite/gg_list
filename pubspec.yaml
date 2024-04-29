@@ -1,6 +1,6 @@
 name: gg_list
 description: GgList - Effectively manage native and nonative 1d and 2d data
-version: 1.2.8
+version: 1.3.0
 repository: https://github.com/inlavigo/gg_list
 
 environment:
