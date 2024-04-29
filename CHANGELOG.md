@@ -1,5 +1,11 @@
 # Changelog
 
+## [Unreleased]
+
+### Added
+
+- Add GgFloatList
+
 ## [1.2.7] - 2024-04-26
 
 ### Fixed
@@ -59,6 +65,7 @@
 
 - Initial version.
 
+[Unreleased]: https://github.com/inlavigo/gg_list/compare/1.2.7...HEAD
 [1.2.7]: https://github.com/inlavigo/gg_list/compare/1.2.6...1.2.7
 [1.2.6]: https://github.com/inlavigo/gg_list/compare/1.2.5...1.2.6
 [1.2.5]: https://github.com/inlavigo/gg_list/compare/1.2.4...1.2.5
