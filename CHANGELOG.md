@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased]
+## [1.3.2] - 2024-06-22
 
 ### Fixed
 
@@ -82,7 +82,7 @@
 
 - Initial version.
 
-[Unreleased]: https://github.com/inlavigo/gg_list/compare/1.3.1...HEAD
+[1.3.2]: https://github.com/inlavigo/gg_list/compare/1.3.1...1.3.2
 [1.3.1]: https://github.com/inlavigo/gg_list/compare/1.3.0...1.3.1
 [1.3.0]: https://github.com/inlavigo/gg_list/compare/1.2.7...1.3.0
 [1.2.7]: https://github.com/inlavigo/gg_list/compare/1.2.6...1.2.7
