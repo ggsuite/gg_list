@@ -21,6 +21,9 @@ class GgRanges {
   /// The minimum value for uint64
   static const uint64Min = 0;
 
+  /// The minimum value for uint64
+  static const uint64Max = int64Max;
+
   /// The minimum value for int8
   static const int8Min = -128;
 
@@ -53,7 +56,43 @@ class GgRanges {
 
   /// The maximum value for int64
   static const int64Max = 9223372036854775807;
-}
 
-/// Example instance of GgRanges for testing
-GgRanges get exampleGgRanges => GgRanges();
+  // ...........................................................................
+  /// Returns the minimum value for the given number of bits
+  static int minInt({required int bits, required bool isSigned}) {
+    return switch (bits) {
+      8 => isSigned ? int8Min : uint8Min,
+      16 => isSigned ? int16Min : uint16Min,
+      32 => isSigned ? int32Min : uint32Min,
+      64 => isSigned ? int64Min : uint64Min,
+      _ => throw ArgumentError('Invalid bits $bits'),
+    };
+  }
+
+  /// Returns the maximum value for the given number of bits
+  static int maxInt({required int bits, required bool isSigned}) {
+    return switch (bits) {
+      8 => isSigned ? int8Max : uint8Max,
+      16 => isSigned ? int16Max : uint16Max,
+      32 => isSigned ? int32Max : uint32Max,
+      64 => isSigned ? int64Max : uint64Max,
+      _ => throw ArgumentError('Invalid bits $bits'),
+    };
+  }
+
+  // ...........................................................................
+  /// Returns true if the value is in the range of the given number of bits
+  static bool isInRange({
+    required int val,
+    required int bits,
+    required bool isSigned,
+  }) {
+    final min = minInt(bits: bits, isSigned: isSigned);
+    final max = maxInt(bits: bits, isSigned: isSigned);
+
+    if (val < min || val > max) {
+      return false;
+    }
+    return true;
+  }
+}
