@@ -9,6 +9,7 @@
 ### Changed
 
 - Make min and max for float list optional
+- Make min and max value optional for GgIntList. Allow to specify the type directly
 
 ## [1.3.0] - 2024-04-29
 

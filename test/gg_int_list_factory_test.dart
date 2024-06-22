@@ -125,5 +125,105 @@ void main() {
       final int64SubList = int64ListFactory.sublistView(int64ListBuffer2, 1, 3);
       expect(int64SubList, [1, 2]);
     });
+
+    group('should derive min and max', () {
+      group('from ListType when not given', () {
+        test('when even no ListType is given', () {
+          var uint8ListFactory = GgIntListFactory(
+            min: null,
+            max: null,
+            listType: null,
+          );
+
+          expect(uint8ListFactory.type, Int64List);
+          expect(uint8ListFactory.min, GgRanges.int64Min);
+          expect(uint8ListFactory.max, GgRanges.int64Max);
+        });
+
+        test('for listType Uint8List', () {
+          var uint8ListFactory = GgIntListFactory(
+            min: null,
+            max: null,
+            listType: Uint8List,
+          );
+
+          expect(uint8ListFactory.type, Uint8List);
+          expect(uint8ListFactory.min, GgRanges.uint8Min);
+          expect(uint8ListFactory.max, GgRanges.uint8Max);
+        });
+
+        test('for listType Uint16List', () {
+          var uint16ListFactory = GgIntListFactory(
+            min: null,
+            max: null,
+            listType: Uint16List,
+          );
+
+          expect(uint16ListFactory.type, Uint16List);
+          expect(uint16ListFactory.min, GgRanges.uint16Min);
+          expect(uint16ListFactory.max, GgRanges.uint16Max);
+        });
+
+        test('for listType Uint32List', () {
+          var uint32ListFactory = GgIntListFactory(
+            min: null,
+            max: null,
+            listType: Uint32List,
+          );
+
+          expect(uint32ListFactory.type, Uint32List);
+          expect(uint32ListFactory.min, GgRanges.uint32Min);
+          expect(uint32ListFactory.max, GgRanges.uint32Max);
+        });
+
+        test('for listType Int8List', () {
+          var int8ListFactory = GgIntListFactory(
+            min: null,
+            max: null,
+            listType: Int8List,
+          );
+
+          expect(int8ListFactory.type, Int8List);
+          expect(int8ListFactory.min, GgRanges.int8Min);
+          expect(int8ListFactory.max, GgRanges.int8Max);
+        });
+
+        test('for listType Int16List', () {
+          var int16ListFactory = GgIntListFactory(
+            min: null,
+            max: null,
+            listType: Int16List,
+          );
+
+          expect(int16ListFactory.type, Int16List);
+          expect(int16ListFactory.min, GgRanges.int16Min);
+          expect(int16ListFactory.max, GgRanges.int16Max);
+        });
+
+        test('for listType Int32List', () {
+          var int32ListFactory = GgIntListFactory(
+            min: null,
+            max: null,
+            listType: Int32List,
+          );
+
+          expect(int32ListFactory.type, Int32List);
+          expect(int32ListFactory.min, GgRanges.int32Min);
+          expect(int32ListFactory.max, GgRanges.int32Max);
+        });
+
+        test('for listType Int64List', () {
+          var int64ListFactory = GgIntListFactory(
+            min: null,
+            max: null,
+            listType: Int64List,
+          );
+
+          expect(int64ListFactory.type, Int64List);
+          expect(int64ListFactory.min, GgRanges.int64Min);
+          expect(int64ListFactory.max, GgRanges.int64Max);
+        });
+      });
+    });
   });
 }

@@ -4,6 +4,8 @@
 // Use of this source code is governed by terms that can be
 // found in the LICENSE file in the root of this package.
 
+// ignore_for_file: prefer_initializing_formals
+
 import 'dart:typed_data';
 
 import '../gg_list.dart';
@@ -12,12 +14,28 @@ import '../gg_list.dart';
 /// on a given value range.
 class GgIntListFactory {
   /// Creates a factory for lists with values between [min] and [max]
-  GgIntListFactory({required int min, required int max})
-      : type = _type(min: min, max: max);
+  GgIntListFactory({int? min, int? max, Type? listType}) {
+    listType ??= Int64List;
+    final bits = GgRanges.bitsForType(listType);
+    final isSigned = GgRanges.isSigned(listType);
+    min ??= GgRanges.minInt(bits: bits, isSigned: isSigned);
+    max ??= GgRanges.maxInt(bits: bits, isSigned: isSigned);
+
+    this.min = min;
+    this.max = max;
+
+    type = _type(min: min, max: max);
+  }
 
   // ...........................................................................
   /// The type of the generated lists, e.g. Uint8List, Uint16List etc
-  final Type type;
+  late final Type type;
+
+  /// The maximum value
+  late final int min;
+
+  /// The minimum value
+  late final int max;
 
   // ...........................................................................
   /// Creates a native int list of length

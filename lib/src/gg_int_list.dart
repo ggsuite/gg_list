@@ -33,8 +33,9 @@ class GgIntList extends GgList<int> {
   /// Creates a GgIntList from a List
   factory GgIntList.fromList(
     List<int> values, {
-    required int min,
-    required int max,
+    int? min,
+    int? max,
+    Type? listType,
   }) =>
       GgIntList.generate(
         createValue: (i) => values[i],
@@ -62,10 +63,11 @@ class GgIntList extends GgList<int> {
   factory GgIntList.generate({
     required int Function(int i)? createValue,
     required int length,
-    required int min,
-    required int max,
+    int? min,
+    int? max,
+    Type? listType,
   }) =>
-      GgIntList._generate(createValue, length, min, max);
+      GgIntList._generate(createValue, length, min, max, listType);
 
   // ...........................................................................
   @override
@@ -96,10 +98,11 @@ class GgIntList extends GgList<int> {
   factory GgIntList._generate(
     int Function(int i)? createValue,
     int length,
-    int min,
-    int max,
+    int? min,
+    int? max,
+    Type? listType,
   ) {
-    final naf = GgIntListFactory(min: min, max: max);
+    final naf = GgIntListFactory(min: min, max: max, listType: listType);
 
     // Generate the int list
     final result = GgList<int>.special(
@@ -112,7 +115,7 @@ class GgIntList extends GgList<int> {
           ? null
           : (i) {
               final val = createValue(i);
-              if (val < min || val > max) {
+              if (val < naf.min || val > naf.max) {
                 throw RangeError('Val $val must be between $min and $max.');
               }
               return val;
@@ -125,8 +128,8 @@ class GgIntList extends GgList<int> {
       createData: result.createData,
       copyData: result.copyData,
       createSubList: result.createSubList,
-      min: min,
-      max: max,
+      min: naf.min,
+      max: naf.max,
     );
   }
 }

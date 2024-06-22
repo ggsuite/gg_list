@@ -4,6 +4,8 @@
 // Use of this source code is governed by terms that can be
 // found in the LICENSE file in the root of this package.
 
+import 'dart:typed_data';
+
 /// Offers ranges for uint8, uint16, uint32, uint64, int8, int16, int32, int64
 class GgRanges {
   // ...........................................................................
@@ -77,6 +79,36 @@ class GgRanges {
       32 => isSigned ? int32Max : uint32Max,
       64 => isSigned ? int64Max : uint64Max,
       _ => throw ArgumentError('Invalid bits $bits'),
+    };
+  }
+
+  /// Returns the number of bits for the given list type
+  static int bitsForType(Type listType) {
+    return switch (listType) {
+      const (Uint8List) => 8,
+      const (Uint16List) => 16,
+      const (Uint32List) => 32,
+      const (Uint64List) => 64,
+      const (Int8List) => 8,
+      const (Int16List) => 16,
+      const (Int32List) => 32,
+      const (Int64List) => 64,
+      _ => throw ArgumentError('Invalid listType $listType'),
+    };
+  }
+
+  /// Returns the number of bits for the given list type
+  static bool isSigned(Type listType) {
+    return switch (listType) {
+      const (Uint8List) => false,
+      const (Uint16List) => false,
+      const (Uint32List) => false,
+      const (Uint64List) => false,
+      const (Int8List) => true,
+      const (Int16List) => true,
+      const (Int32List) => true,
+      const (Int64List) => true,
+      _ => throw ArgumentError('Invalid listType $listType'),
     };
   }
 

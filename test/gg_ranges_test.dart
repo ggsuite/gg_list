@@ -4,6 +4,8 @@
 // Use of this source code is governed by terms that can be
 // found in the LICENSE file in the root of this package.
 
+import 'dart:typed_data';
+
 import 'package:gg_list/src/gg_ranges.dart';
 import 'package:test/test.dart';
 
@@ -198,6 +200,58 @@ void main() {
             ),
           );
         });
+      });
+    });
+
+    group('bitsForType', () {
+      test('should return the correct number of bits', () {
+        expect(GgRanges.bitsForType(Uint8List), 8);
+        expect(GgRanges.bitsForType(Uint16List), 16);
+        expect(GgRanges.bitsForType(Uint32List), 32);
+        expect(GgRanges.bitsForType(Uint64List), 64);
+        expect(GgRanges.bitsForType(Int8List), 8);
+        expect(GgRanges.bitsForType(Int16List), 16);
+        expect(GgRanges.bitsForType(Int32List), 32);
+        expect(GgRanges.bitsForType(Int64List), 64);
+      });
+
+      test('should throw on invalid listType', () {
+        expect(
+          () => GgRanges.bitsForType(List<int>),
+          throwsA(
+            isA<ArgumentError>().having(
+              (e) => e.message,
+              'message',
+              contains('Invalid listType List<int>'),
+            ),
+          ),
+        );
+      });
+    });
+
+    group('isSigned', () {
+      test('should return the correct signedness', () {
+        expect(GgRanges.isSigned(Uint8List), false);
+        expect(GgRanges.isSigned(Uint16List), false);
+        expect(GgRanges.isSigned(Uint32List), false);
+        expect(GgRanges.isSigned(Uint64List), false);
+        expect(GgRanges.isSigned(Int8List), true);
+        expect(GgRanges.isSigned(Int16List), true);
+        expect(GgRanges.isSigned(Int32List), true);
+        expect(GgRanges.isSigned(Int64List), true);
+      });
+
+      test('should throw on invalid listType', () {
+        expect(
+          () => GgRanges.isSigned(List<int>),
+          throwsA(
+            isA<ArgumentError>().having(
+              (e) => e.message,
+              'message',
+              contains('Invalid listType List<int>'),
+            ),
+          ),
+        );
       });
     });
   });
