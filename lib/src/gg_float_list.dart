@@ -18,17 +18,17 @@ class GgFloatList extends GgList<double> {
     required super.createData,
     required super.copyData,
     required super.createSubList,
-    required this.min,
-    required this.max,
+    this.min,
+    this.max,
     required this.listType,
   }) : assert(listType == Float32List || listType == Float64List);
 
   // ...........................................................................
   /// The minimum allowed value
-  final double min;
+  final double? min;
 
   /// The maximum allowed value
-  final double max;
+  final double? max;
 
   /// The type of the list, e.g. Float32List, Float63List etc
   final Type listType;
@@ -37,8 +37,8 @@ class GgFloatList extends GgList<double> {
   /// Creates a GgFloatList from a List
   factory GgFloatList.fromList(
     List<double> values, {
-    required double min,
-    required double max,
+    double? min,
+    double? max,
     required Type listType,
   }) =>
       GgFloatList.generate(
@@ -69,8 +69,8 @@ class GgFloatList extends GgList<double> {
   factory GgFloatList.generate({
     required double Function(int i)? createValue,
     required int length,
-    required double min,
-    required double max,
+    double? min,
+    double? max,
     required Type listType,
   }) =>
       GgFloatList._generate(createValue, length, min, max, listType);
@@ -115,8 +115,8 @@ class GgFloatList extends GgList<double> {
   factory GgFloatList._generate(
     double Function(int i)? createValue,
     int length,
-    double min,
-    double max,
+    double? min,
+    double? max,
     Type listType,
   ) {
     assert(listType == Float32List || listType == Float64List);
@@ -141,7 +141,7 @@ class GgFloatList extends GgList<double> {
           ? null
           : (i) {
               final val = createValue(i);
-              if (val < min || val > max) {
+              if ((min != null && val < min) || (max != null && val > max)) {
                 throw RangeError('Val $val must be between $min and $max.');
               }
               return val;

@@ -6,6 +6,10 @@
 
 - Add GgRanges.minInt, maxInt, isInRange
 
+### Changed
+
+- Make min and max for float list optional
+
 ## [1.3.0] - 2024-04-29
 
 ### Added
