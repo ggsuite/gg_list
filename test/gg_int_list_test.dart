@@ -167,12 +167,22 @@ void main() {
       });
 
       // #######################################################################
-      group('fromList(values, min, max)', () {
-        test('should create an list with values', () {
-          final list = GgIntList.fromList([0, 1, 2, 3], min: 0, max: 10);
+      group('fromList(values, min, max, type)', () {
+        group('with min and max', () {
+          test('should create an list with values', () {
+            final list = GgIntList.fromList([0, 1, 2, 3], min: 0, max: 10);
 
-          expect(list.data, [0, 1, 2, 3]);
-          expect(list.data, isA<Uint8List>());
+            expect(list.data, [0, 1, 2, 3]);
+            expect(list.data, isA<Uint8List>());
+          });
+        });
+        group('with type', () {
+          test('should create an list with values', () {
+            final list = GgIntList.fromList([0, 1, 2, 3], listType: Uint16List);
+
+            expect(list.data, [0, 1, 2, 3]);
+            expect(list.data, isA<Uint16List>());
+          });
         });
       });
 

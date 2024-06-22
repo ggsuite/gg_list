@@ -42,6 +42,7 @@ class GgIntList extends GgList<int> {
         length: values.length,
         min: min,
         max: max,
+        listType: listType,
       );
 
   // ...........................................................................
