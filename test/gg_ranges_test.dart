@@ -152,19 +152,19 @@ void main() {
         test('int64', () {
           expect(
             iir(val: GgRanges.int64Min - 1, bits: 64, isSigned: true),
-            true, // Overflows
+            false,
           );
           expect(
             iir(val: GgRanges.int64Min, bits: 64, isSigned: true),
             true,
           );
           expect(
-            iir(val: GgRanges.int64Max, bits: 64, isSigned: true),
+            iir(val: GgRanges.int64Max - 1, bits: 53, isSigned: true),
             true,
           );
           expect(
-            iir(val: GgRanges.int64Max + 1, bits: 64, isSigned: true),
-            true, // Overflows
+            iir(val: GgRanges.int64Max + 1, bits: 53, isSigned: true),
+            false, // Overflows
           );
         });
       });

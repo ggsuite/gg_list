@@ -56,8 +56,8 @@ class GgRanges {
   /// The maximum value for int32
   static const int32Max = 2147483647;
 
-  /// The maximum value for int64
-  static const int64Max = 9223372036854775807;
+  /// The maximum value for int64 (web save)
+  static const int64Max = 9007199254740991;
 
   // ...........................................................................
   /// Returns the minimum value for the given number of bits
@@ -66,6 +66,9 @@ class GgRanges {
       8 => isSigned ? int8Min : uint8Min,
       16 => isSigned ? int16Min : uint16Min,
       32 => isSigned ? int32Min : uint32Min,
+      53 => isSigned
+          ? int64Min // Web compatible https://developer.mozilla.org/de/docs/Web/JavaScript/Reference/Global_Objects/Number/MAX_SAFE_INTEGER
+          : uint64Min,
       64 => isSigned ? int64Min : uint64Min,
       _ => throw ArgumentError('Invalid bits $bits'),
     };
@@ -77,7 +80,10 @@ class GgRanges {
       8 => isSigned ? int8Max : uint8Max,
       16 => isSigned ? int16Max : uint16Max,
       32 => isSigned ? int32Max : uint32Max,
-      64 => isSigned ? int64Max : uint64Max,
+      53 => isSigned ? int64Max : uint64Max,
+      64 => isSigned
+          ? int64Max // Web compatible https://developer.mozilla.org/de/docs/Web/JavaScript/Reference/Global_Objects/Number/MAX_SAFE_INTEGER
+          : uint64Max,
       _ => throw ArgumentError('Invalid bits $bits'),
     };
   }
