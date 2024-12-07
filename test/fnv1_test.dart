@@ -16,13 +16,13 @@ void main() {
     test('Should work fine for buffers with length devidable by 8', () {
       final buffer = Uint16List(8);
       final hash = fnv1(buffer);
-      expect(hash, -8227627276586361153);
+      expect(hash, -3916439894172417563);
     });
 
     test('Should work fine for buffers with length not devidable by 8', () {
       final buffer = Uint16List(7);
       final hash = fnv1(buffer);
-      expect(hash, 3996250538634052716);
+      expect(hash, -8782720856469214253);
     });
 
     test('Should work fine for strings', () {

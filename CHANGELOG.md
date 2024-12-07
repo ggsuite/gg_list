@@ -1,5 +1,11 @@
 # Changelog
 
+## [Unreleased]
+
+### Changed
+
+- Changed fnv1 algorithm - No Int64Lists are generated anymore because it does not work on web
+
 ## [1.3.3] - 2024-12-07
 
 ### Changed
@@ -88,6 +94,7 @@
 
 - Initial version.
 
+[Unreleased]: https://github.com/inlavigo/gg_list/compare/1.3.3...HEAD
 [1.3.3]: https://github.com/inlavigo/gg_list/compare/1.3.2...1.3.3
 [1.3.2]: https://github.com/inlavigo/gg_list/compare/1.3.1...1.3.2
 [1.3.1]: https://github.com/inlavigo/gg_list/compare/1.3.0...1.3.1
