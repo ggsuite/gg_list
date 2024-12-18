@@ -1,5 +1,11 @@
 # Changelog
 
+## [2.0.1] - 2024-12-18
+
+### Changed
+
+- Changed hashing of typed data
+
 ## [2.0.0] - 2024-12-07
 
 ### Changed
@@ -94,6 +100,7 @@
 
 - Initial version.
 
+[2.0.1]: https://github.com/inlavigo/gg_list/compare/2.0.0...2.0.1
 [2.0.0]: https://github.com/inlavigo/gg_list/compare/1.3.3...2.0.0
 [1.3.3]: https://github.com/inlavigo/gg_list/compare/1.3.2...1.3.3
 [1.3.2]: https://github.com/inlavigo/gg_list/compare/1.3.1...1.3.2
