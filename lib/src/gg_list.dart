@@ -45,12 +45,19 @@ class GgList<T> implements List<T> {
   /// Generate the list from another list
   factory GgList.fromList(
     List<T> values,
-  ) =>
-      GgList.generate(
-        length: values.length,
-        createValue: (i) => values[i],
-        fill: values[0],
+  ) {
+    if (values.isEmpty) {
+      throw ArgumentError(
+        'GgList.fromList requires a non-empty list.',
       );
+    }
+
+    return GgList.generate(
+      length: values.length,
+      createValue: (i) => values[i],
+      fill: values[0],
+    );
+  }
 
   // ...........................................................................
   /// Derived classes can use this constructor to initialize itself based

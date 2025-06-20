@@ -25,9 +25,20 @@ void main() {
 
     // #########################################################################
     group('fromList(values)', () {
-      test('should work', () {
+      test('should work predefined lists', () {
         final strList = GgList.fromList(['1', '2', '3']);
         expect(strList, ['1', '2', '3']);
+      });
+
+      test('should throw when list is empty', () {
+        var message = <String>[];
+        try {
+          GgList.fromList([]);
+        } catch (e) {
+          message = (e as dynamic).message.toString().split('\n');
+        }
+
+        expect(message, ['GgList.fromList requires a non-empty list.']);
       });
     });
 
