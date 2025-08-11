@@ -40,29 +40,28 @@ class GgFloatList extends GgList<double> {
     double? min,
     double? max,
     required Type listType,
-  }) =>
-      GgFloatList.generate(
-        createValue: (i) => values[i],
-        length: values.length,
-        min: min,
-        max: max,
-        listType: listType,
-      );
+  }) => GgFloatList.generate(
+    createValue: (i) => values[i],
+    length: values.length,
+    min: min,
+    max: max,
+    listType: listType,
+  );
 
   // ...........................................................................
   /// Derived classes can use this constructor to initialize itself based on a
   /// GgFloatList.
   GgFloatList.fromFloatList(GgFloatList floatList)
-      : min = floatList.min,
-        max = floatList.max,
-        listType = floatList.listType,
-        super(
-          data: floatList.data as List<double>,
-          hashCode: floatList.hashCode,
-          createData: floatList.createData,
-          copyData: floatList.copyData,
-          createSubList: floatList.createSubList,
-        );
+    : min = floatList.min,
+      max = floatList.max,
+      listType = floatList.listType,
+      super(
+        data: floatList.data as List<double>,
+        hashCode: floatList.hashCode,
+        createData: floatList.createData,
+        copyData: floatList.copyData,
+        createSubList: floatList.createSubList,
+      );
 
   // ...........................................................................
   /// Creates a GgFloatList from a createValue method
@@ -72,8 +71,7 @@ class GgFloatList extends GgList<double> {
     double? min,
     double? max,
     required Type listType,
-  }) =>
-      GgFloatList._generate(createValue, length, min, max, listType);
+  }) => GgFloatList._generate(createValue, length, min, max, listType);
 
   // ...........................................................................
   @override
@@ -121,11 +119,13 @@ class GgFloatList extends GgList<double> {
   ) {
     assert(listType == Float32List || listType == Float64List);
 
-    final createBuffer =
-        listType == Float32List ? Float32List.new : Float64List.new;
+    final createBuffer = listType == Float32List
+        ? Float32List.new
+        : Float64List.new;
 
-    final copyBuffer =
-        listType == Float32List ? Float32List.fromList : Float64List.fromList;
+    final copyBuffer = listType == Float32List
+        ? Float32List.fromList
+        : Float64List.fromList;
 
     final subList = listType == Float32List
         ? Float32List.sublistView

@@ -79,11 +79,7 @@ void main() {
         }
 
         // Revert Change
-        final reverted = after.setValue(
-          cA,
-          cB,
-          before.value(cA, cB),
-        );
+        final reverted = after.setValue(cA, cB, before.value(cA, cB));
 
         // Hashes should also be reverted
         expect(reverted.hashCode, before.hashCode);

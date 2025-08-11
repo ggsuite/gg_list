@@ -48,8 +48,9 @@ class Gg2dList<V> {
       createBuffer: (length) => List<T>.filled(length, growable: false, fill),
       copyBuffer: List<T>.from,
       subList: (p0, [start = 0, end]) => p0.sublist(start, end),
-      createValue:
-          createValue == null ? null : (col, row) => createValue(col, row),
+      createValue: createValue == null
+          ? null
+          : (col, row) => createValue(col, row),
     );
   }
 
@@ -138,11 +139,7 @@ class Gg2dList<V> {
 
   // ...........................................................................
   /// Calculates
-  static int rowOrColHash<T>(
-    List<T> data,
-    int rowOrCol,
-    int cellsPerLine,
-  ) {
+  static int rowOrColHash<T>(List<T> data, int rowOrCol, int cellsPerLine) {
     final startIndex = rowOrCol * cellsPerLine;
 
     return fnv1(data, startIndex, startIndex + cellsPerLine);
@@ -151,7 +148,7 @@ class Gg2dList<V> {
   // ...........................................................................
   /// Calculate row and column hashes
   static (Int64List rowHashes, Int64List colHashes)
-      calculateRowAndColHashes<T>({
+  calculateRowAndColHashes<T>({
     required List<T> data,
     required List<T> dataT,
     required int rowCount,
@@ -200,18 +197,18 @@ class Gg2dList<V> {
   // ...........................................................................
   /// Return a complete row
   List<V> row(int row) => subList(
-        data,
-        dataIndex(0, row, colCount),
-        dataIndex(0, row, colCount) + colCount,
-      );
+    data,
+    dataIndex(0, row, colCount),
+    dataIndex(0, row, colCount) + colCount,
+  );
 
   // ...........................................................................
   /// Return a complete column
   List<V> col(int col) => subList(
-        dataT,
-        dataIndexT(col, 0, rowCount),
-        dataIndexT(col, 0, rowCount) + rowCount,
-      );
+    dataT,
+    dataIndexT(col, 0, rowCount),
+    dataIndexT(col, 0, rowCount) + rowCount,
+  );
 
   // ...........................................................................
   @override

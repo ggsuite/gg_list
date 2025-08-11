@@ -45,14 +45,13 @@ class Gg2dIntList extends Gg2dList<int> {
     required int max,
     required int rowCount,
     required int colCount,
-  }) =>
-      Gg2dIntList._generateIntSpace(
-        createValue: createValue,
-        min: min,
-        max: max,
-        rowCount: rowCount,
-        colCount: colCount,
-      );
+  }) => Gg2dIntList._generateIntSpace(
+    createValue: createValue,
+    min: min,
+    max: max,
+    rowCount: rowCount,
+    colCount: colCount,
+  );
 
   // ######################
   // Data

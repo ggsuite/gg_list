@@ -19,14 +19,8 @@ void main() {
             iir(val: GgRanges.uint8Min - 1, bits: 8, isSigned: false),
             false,
           );
-          expect(
-            iir(val: GgRanges.uint8Min, bits: 8, isSigned: false),
-            true,
-          );
-          expect(
-            iir(val: GgRanges.uint8Max, bits: 8, isSigned: false),
-            true,
-          );
+          expect(iir(val: GgRanges.uint8Min, bits: 8, isSigned: false), true);
+          expect(iir(val: GgRanges.uint8Max, bits: 8, isSigned: false), true);
           expect(
             iir(val: GgRanges.uint8Max + 1, bits: 8, isSigned: false),
             false,
@@ -38,14 +32,8 @@ void main() {
             iir(val: GgRanges.uint16Min - 1, bits: 16, isSigned: false),
             false,
           );
-          expect(
-            iir(val: GgRanges.uint16Min, bits: 16, isSigned: false),
-            true,
-          );
-          expect(
-            iir(val: GgRanges.uint16Max, bits: 16, isSigned: false),
-            true,
-          );
+          expect(iir(val: GgRanges.uint16Min, bits: 16, isSigned: false), true);
+          expect(iir(val: GgRanges.uint16Max, bits: 16, isSigned: false), true);
           expect(
             iir(val: GgRanges.uint16Max + 1, bits: 16, isSigned: false),
             false,
@@ -57,14 +45,8 @@ void main() {
             iir(val: GgRanges.uint32Min - 1, bits: 32, isSigned: false),
             false,
           );
-          expect(
-            iir(val: GgRanges.uint32Min, bits: 32, isSigned: false),
-            true,
-          );
-          expect(
-            iir(val: GgRanges.uint32Max, bits: 32, isSigned: false),
-            true,
-          );
+          expect(iir(val: GgRanges.uint32Min, bits: 32, isSigned: false), true);
+          expect(iir(val: GgRanges.uint32Max, bits: 32, isSigned: false), true);
           expect(
             iir(val: GgRanges.uint32Max + 1, bits: 32, isSigned: false),
             false,
@@ -76,14 +58,8 @@ void main() {
             iir(val: GgRanges.uint64Min - 1, bits: 64, isSigned: false),
             false,
           );
-          expect(
-            iir(val: GgRanges.uint64Min, bits: 64, isSigned: false),
-            true,
-          );
-          expect(
-            iir(val: GgRanges.uint64Max, bits: 64, isSigned: false),
-            true,
-          );
+          expect(iir(val: GgRanges.uint64Min, bits: 64, isSigned: false), true);
+          expect(iir(val: GgRanges.uint64Max, bits: 64, isSigned: false), true);
           expect(
             iir(val: GgRanges.uint64Max + 1, bits: 64, isSigned: false),
             false,
@@ -97,14 +73,8 @@ void main() {
             iir(val: GgRanges.int8Min - 1, bits: 8, isSigned: true),
             false,
           );
-          expect(
-            iir(val: GgRanges.int8Min, bits: 8, isSigned: true),
-            true,
-          );
-          expect(
-            iir(val: GgRanges.int8Max, bits: 8, isSigned: true),
-            true,
-          );
+          expect(iir(val: GgRanges.int8Min, bits: 8, isSigned: true), true);
+          expect(iir(val: GgRanges.int8Max, bits: 8, isSigned: true), true);
           expect(
             iir(val: GgRanges.int8Max + 1, bits: 8, isSigned: true),
             false,
@@ -116,14 +86,8 @@ void main() {
             iir(val: GgRanges.int16Min - 1, bits: 16, isSigned: true),
             false,
           );
-          expect(
-            iir(val: GgRanges.int16Min, bits: 16, isSigned: true),
-            true,
-          );
-          expect(
-            iir(val: GgRanges.int16Max, bits: 16, isSigned: true),
-            true,
-          );
+          expect(iir(val: GgRanges.int16Min, bits: 16, isSigned: true), true);
+          expect(iir(val: GgRanges.int16Max, bits: 16, isSigned: true), true);
           expect(
             iir(val: GgRanges.int16Max + 1, bits: 16, isSigned: true),
             false,
@@ -135,14 +99,8 @@ void main() {
             iir(val: GgRanges.int32Min - 1, bits: 32, isSigned: true),
             false,
           );
-          expect(
-            iir(val: GgRanges.int32Min, bits: 32, isSigned: true),
-            true,
-          );
-          expect(
-            iir(val: GgRanges.int32Max, bits: 32, isSigned: true),
-            true,
-          );
+          expect(iir(val: GgRanges.int32Min, bits: 32, isSigned: true), true);
+          expect(iir(val: GgRanges.int32Max, bits: 32, isSigned: true), true);
           expect(
             iir(val: GgRanges.int32Max + 1, bits: 32, isSigned: true),
             false,
@@ -154,10 +112,7 @@ void main() {
             iir(val: GgRanges.int64Min - 1, bits: 64, isSigned: true),
             false,
           );
-          expect(
-            iir(val: GgRanges.int64Min, bits: 64, isSigned: true),
-            true,
-          );
+          expect(iir(val: GgRanges.int64Min, bits: 64, isSigned: true), true);
           expect(
             iir(val: GgRanges.int64Max - 1, bits: 53, isSigned: true),
             true,

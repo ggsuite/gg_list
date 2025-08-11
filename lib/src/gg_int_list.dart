@@ -36,28 +36,27 @@ class GgIntList extends GgList<int> {
     int? min,
     int? max,
     Type? listType,
-  }) =>
-      GgIntList.generate(
-        createValue: (i) => values[i],
-        length: values.length,
-        min: min,
-        max: max,
-        listType: listType,
-      );
+  }) => GgIntList.generate(
+    createValue: (i) => values[i],
+    length: values.length,
+    min: min,
+    max: max,
+    listType: listType,
+  );
 
   // ...........................................................................
   /// Derived classes can use this constructor to initialize itself based on a
   /// GgIntList.
   GgIntList.fromIntList(GgIntList intList)
-      : min = intList.min,
-        max = intList.max,
-        super(
-          data: intList.data as List<int>,
-          hashCode: intList.hashCode,
-          createData: intList.createData,
-          copyData: intList.copyData,
-          createSubList: intList.createSubList,
-        );
+    : min = intList.min,
+      max = intList.max,
+      super(
+        data: intList.data as List<int>,
+        hashCode: intList.hashCode,
+        createData: intList.createData,
+        copyData: intList.copyData,
+        createSubList: intList.createSubList,
+      );
 
   // ...........................................................................
   /// Creates a GgIntList from a createValue method
@@ -67,8 +66,7 @@ class GgIntList extends GgList<int> {
     int? min,
     int? max,
     Type? listType,
-  }) =>
-      GgIntList._generate(createValue, length, min, max, listType);
+  }) => GgIntList._generate(createValue, length, min, max, listType);
 
   // ...........................................................................
   @override

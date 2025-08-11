@@ -66,9 +66,10 @@ class GgRanges {
       8 => isSigned ? int8Min : uint8Min,
       16 => isSigned ? int16Min : uint16Min,
       32 => isSigned ? int32Min : uint32Min,
-      53 => isSigned
-          ? int64Min // Web compatible https://developer.mozilla.org/de/docs/Web/JavaScript/Reference/Global_Objects/Number/MAX_SAFE_INTEGER
-          : uint64Min,
+      53 =>
+        isSigned
+            ? int64Min // Web compatible https://developer.mozilla.org/de/docs/Web/JavaScript/Reference/Global_Objects/Number/MAX_SAFE_INTEGER
+            : uint64Min,
       64 => isSigned ? int64Min : uint64Min,
       _ => throw ArgumentError('Invalid bits $bits'),
     };
@@ -81,9 +82,10 @@ class GgRanges {
       16 => isSigned ? int16Max : uint16Max,
       32 => isSigned ? int32Max : uint32Max,
       53 => isSigned ? int64Max : uint64Max,
-      64 => isSigned
-          ? int64Max // Web compatible https://developer.mozilla.org/de/docs/Web/JavaScript/Reference/Global_Objects/Number/MAX_SAFE_INTEGER
-          : uint64Max,
+      64 =>
+        isSigned
+            ? int64Max // Web compatible https://developer.mozilla.org/de/docs/Web/JavaScript/Reference/Global_Objects/Number/MAX_SAFE_INTEGER
+            : uint64Max,
       _ => throw ArgumentError('Invalid bits $bits'),
     };
   }

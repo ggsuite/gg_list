@@ -63,9 +63,7 @@ void main() {
         expect(list, [0, 1, 2]);
 
         // Transform that list
-        final transformedList = list.transform(
-          (i, val) => i * val + 10,
-        );
+        final transformedList = list.transform((i, val) => i * val + 10);
         expect(transformedList, [10, 11, 14]);
       });
     });
@@ -95,10 +93,7 @@ void main() {
         expect(before.hashCode, isNot(after.hashCode));
 
         // Revert Change
-        final reverted = after.copyWithValue(
-          cB,
-          before.value(cB),
-        );
+        final reverted = after.copyWithValue(cB, before.value(cB));
 
         // Hashes should also be reverted
         expect(reverted.hashCode, before.hashCode);

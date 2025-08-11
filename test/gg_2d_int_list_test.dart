@@ -22,10 +22,7 @@ void main() {
   group('Gg2dIntList', () {
     // #########################################################################
 
-    void expectRange<T>({
-      required int min,
-      required int max,
-    }) {
+    void expectRange<T>({required int min, required int max}) {
       int i = 0;
       final range = max - min + 1;
       final s = Gg2dIntList.generate(
@@ -87,8 +84,7 @@ void main() {
     group('Int Spaces', () {
       // #######################################################################
       group('generate', () {
-        test(
-            'should create Uint8List, Uint16List etc. dependent on min and '
+        test('should create Uint8List, Uint16List etc. dependent on min and '
             'max ', () {
           // Check uints
           expectRange<Uint8List>(min: 0, max: 0xFF);
@@ -117,60 +113,48 @@ void main() {
           const max = 20;
 
           // Is on upper bound -> no throw
-          expect(
-            () {
-              Gg2dIntList.generate(
-                createValue: (col, row) => max,
-                min: min,
-                max: max,
-                rowCount: rowCount,
-                colCount: colCount,
-              );
-            },
-            isNot(throwsRangeError),
-          );
+          expect(() {
+            Gg2dIntList.generate(
+              createValue: (col, row) => max,
+              min: min,
+              max: max,
+              rowCount: rowCount,
+              colCount: colCount,
+            );
+          }, isNot(throwsRangeError));
 
           // Is on lower bound -> no throw
-          expect(
-            () {
-              Gg2dIntList.generate(
-                createValue: (col, row) => min,
-                min: min,
-                max: max,
-                rowCount: rowCount,
-                colCount: colCount,
-              );
-            },
-            isNot(throwsRangeError),
-          );
+          expect(() {
+            Gg2dIntList.generate(
+              createValue: (col, row) => min,
+              min: min,
+              max: max,
+              rowCount: rowCount,
+              colCount: colCount,
+            );
+          }, isNot(throwsRangeError));
 
           // Exceeds uppber bound
-          expect(
-            () {
-              Gg2dIntList.generate(
-                createValue: (col, row) => max + 1,
-                min: min,
-                max: max,
-                rowCount: rowCount,
-                colCount: colCount,
-              );
-            },
-            throwsRangeError,
-          );
+          expect(() {
+            Gg2dIntList.generate(
+              createValue: (col, row) => max + 1,
+              min: min,
+              max: max,
+              rowCount: rowCount,
+              colCount: colCount,
+            );
+          }, throwsRangeError);
 
           // Exceeds lower bound
-          expect(
-            () {
-              Gg2dIntList.generate(
-                createValue: (col, row) => min - 1,
-                min: min,
-                max: max,
-                rowCount: rowCount,
-                colCount: colCount,
-              );
-            },
-            throwsRangeError,
-          );
+          expect(() {
+            Gg2dIntList.generate(
+              createValue: (col, row) => min - 1,
+              min: min,
+              max: max,
+              rowCount: rowCount,
+              colCount: colCount,
+            );
+          }, throwsRangeError);
         });
 
         test('should work fine', () {
@@ -234,11 +218,7 @@ void main() {
           }
 
           // Revert Change
-          final reverted = after.setValue(
-            cA,
-            cB,
-            before.value(cA, cB),
-          );
+          final reverted = after.setValue(cA, cB, before.value(cA, cB));
 
           // Hashes should also be reverted
           expect(reverted.hashCode, before.hashCode);

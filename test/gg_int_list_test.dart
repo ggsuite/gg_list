@@ -17,10 +17,7 @@ void main() {
   group('GgIntlist', () {
     // #########################################################################
 
-    void expectRange<T>({
-      required int min,
-      required int max,
-    }) {
+    void expectRange<T>({required int min, required int max}) {
       final range = max - min + 1;
       final s = GgIntList.generate(
         length: numRows,
@@ -39,8 +36,7 @@ void main() {
     group('Int lists', () {
       // #######################################################################
       group('generateIntList', () {
-        test(
-            'should create Uint8List, Uint16List etc. dependent on min and '
+        test('should create Uint8List, Uint16List etc. dependent on min and '
             'max ', () {
           // Check uints
           expectRange<Uint8List>(min: 0, max: 0xFF);
@@ -69,56 +65,44 @@ void main() {
           const max = 20;
 
           // Is on upper bound -> no throw
-          expect(
-            () {
-              GgIntList.generate(
-                length: numRows,
-                createValue: (i) => max,
-                min: min,
-                max: max,
-              );
-            },
-            isNot(throwsRangeError),
-          );
+          expect(() {
+            GgIntList.generate(
+              length: numRows,
+              createValue: (i) => max,
+              min: min,
+              max: max,
+            );
+          }, isNot(throwsRangeError));
 
           // Is on lower bound -> no throw
-          expect(
-            () {
-              GgIntList.generate(
-                length: numRows,
-                createValue: (i) => min,
-                min: min,
-                max: max,
-              );
-            },
-            isNot(throwsRangeError),
-          );
+          expect(() {
+            GgIntList.generate(
+              length: numRows,
+              createValue: (i) => min,
+              min: min,
+              max: max,
+            );
+          }, isNot(throwsRangeError));
 
           // Exceeds uppber bound
-          expect(
-            () {
-              GgIntList.generate(
-                length: numRows,
-                createValue: (i) => max + 1,
-                min: min,
-                max: max,
-              );
-            },
-            throwsRangeError,
-          );
+          expect(() {
+            GgIntList.generate(
+              length: numRows,
+              createValue: (i) => max + 1,
+              min: min,
+              max: max,
+            );
+          }, throwsRangeError);
 
           // Exceeds lower bound
-          expect(
-            () {
-              GgIntList.generate(
-                length: numRows,
-                createValue: (i) => min - 1,
-                min: min,
-                max: max,
-              );
-            },
-            throwsRangeError,
-          );
+          expect(() {
+            GgIntList.generate(
+              length: numRows,
+              createValue: (i) => min - 1,
+              min: min,
+              max: max,
+            );
+          }, throwsRangeError);
         });
 
         test('should work fine', () {
@@ -146,10 +130,7 @@ void main() {
           expect(before.hashCode, isNot(after.hashCode));
 
           // Revert Change
-          final reverted = after.copyWithValue(
-            cB,
-            before.value(cB),
-          );
+          final reverted = after.copyWithValue(cB, before.value(cB));
 
           // Hashes should also be reverted
           expect(reverted.hashCode, before.hashCode);
@@ -216,9 +197,7 @@ void main() {
         expect(list, [0, 1, 2]);
 
         // Transform that list
-        final transformedList = list.transform(
-          (i, val) => i * val + 10,
-        );
+        final transformedList = list.transform((i, val) => i * val + 10);
         expect(transformedList, [10, 11, 14]);
       });
     });

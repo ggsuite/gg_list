@@ -1,5 +1,11 @@
 # Changelog
 
+## [Unreleased]
+
+### Added
+
+- Add .gitattributes file
+
 ## [2.0.2] - 2025-06-20
 
 ### Added
@@ -106,6 +112,7 @@
 
 - Initial version.
 
+[Unreleased]: https://github.com/inlavigo/gg_list/compare/2.0.2...HEAD
 [2.0.2]: https://github.com/inlavigo/gg_list/compare/2.0.1...2.0.2
 [2.0.1]: https://github.com/inlavigo/gg_list/compare/2.0.0...2.0.1
 [2.0.0]: https://github.com/inlavigo/gg_list/compare/1.3.3...2.0.0

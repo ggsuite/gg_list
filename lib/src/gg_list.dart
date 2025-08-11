@@ -43,13 +43,9 @@ class GgList<T> implements List<T> {
 
   // ...........................................................................
   /// Generate the list from another list
-  factory GgList.fromList(
-    List<T> values,
-  ) {
+  factory GgList.fromList(List<T> values) {
     if (values.isEmpty) {
-      throw ArgumentError(
-        'GgList.fromList requires a non-empty list.',
-      );
+      throw ArgumentError('GgList.fromList requires a non-empty list.');
     }
 
     return GgList.generate(
@@ -62,13 +58,12 @@ class GgList<T> implements List<T> {
   // ...........................................................................
   /// Derived classes can use this constructor to initialize itself based
   /// on a GgList
-  GgList.fromGgList(
-    GgList<T> list,
-  )   : _data = list._data,
-        hashCode = list.hashCode,
-        createData = list.createData,
-        copyData = list.copyData,
-        createSubList = list.createSubList;
+  GgList.fromGgList(GgList<T> list)
+    : _data = list._data,
+      hashCode = list.hashCode,
+      createData = list.createData,
+      copyData = list.copyData,
+      createSubList = list.createSubList;
 
   // ######################
   // Copy & modify
@@ -354,8 +349,7 @@ class GgList<T> implements List<T> {
     int end,
     Iterable<T> iterable, [
     int skipCount = 0,
-  ]) =>
-      throw _immutableError;
+  ]) => throw _immutableError;
 
   @override
   void removeRange(int start, int end) => throw _immutableError;
@@ -391,14 +385,13 @@ class GgList<T> implements List<T> {
     required List<T> Function(List<T>) copyBuffer,
     required List<T> Function(List<T>, int start, int? end) subList,
     T Function(int i)? createValue,
-  }) =>
-      _generate(
-        length: length,
-        createBuffer: createBuffer,
-        copyBuffer: copyBuffer,
-        subList: subList,
-        createValue: createValue,
-      );
+  }) => _generate(
+    length: length,
+    createBuffer: createBuffer,
+    copyBuffer: copyBuffer,
+    subList: subList,
+    createValue: createValue,
+  );
 
   // ...........................................................................
   static GgList<T> _generate<T>({
