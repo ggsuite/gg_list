@@ -161,5 +161,49 @@ void main() {
         expect(copy, [2.0, 3.0]);
       });
     });
+
+    // #########################################################################
+    group('without min and max', () {
+      test('fromList should not check ranges', () {
+        final ggFloatList = GgFloatList.fromList([
+          1.0,
+          2.0,
+        ], listType: Float32List);
+        expect(ggFloatList, [1.0, 2.0]);
+      });
+
+      test('generate should not check ranges and support Float64List', () {
+        final ggFloatList = GgFloatList.generate(
+          createValue: (i) => i.toDouble(),
+          length: 3,
+          listType: Float64List,
+        );
+        expect(ggFloatList.data, isA<Float64List>());
+        expect(ggFloatList, [0.0, 1.0, 2.0]);
+        expect(ggFloatList.subList(1, 3), [1.0, 2.0]);
+      });
+
+      test('transform should not check ranges', () {
+        final ggFloatList = GgFloatList.fromList([
+          1.0,
+          2.0,
+        ], listType: Float32List);
+        final transformed = ggFloatList.transform((i, val) => val + 1.0);
+        expect(transformed, [2.0, 3.0]);
+      });
+    });
+
+    // #########################################################################
+    group('transform(i, val)', () {
+      test('should throw if a transformed value is out of range', () {
+        final ggFloatList = GgFloatList.fromList(
+          [1.0],
+          min: 0.0,
+          max: 2.0,
+          listType: Float32List,
+        );
+        expect(() => ggFloatList.transform((i, val) => 3.0), throwsRangeError);
+      });
+    });
   });
 }

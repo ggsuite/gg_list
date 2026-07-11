@@ -40,13 +40,30 @@ class GgFloatList extends GgList<double> {
     double? min,
     double? max,
     required Type listType,
-  }) => GgFloatList.generate(
-    createValue: (i) => values[i],
-    length: values.length,
-    min: min,
-    max: max,
-    listType: listType,
-  );
+  }) {
+    assert(listType == Float32List || listType == Float64List);
+
+    final length = values.length;
+    final data = listType == Float32List
+        ? Float32List(length)
+        : Float64List(length);
+
+    if (min == null && max == null) {
+      for (var i = 0; i < length; i++) {
+        data[i] = values[i];
+      }
+    } else {
+      for (var i = 0; i < length; i++) {
+        final val = values[i];
+        if ((min != null && val < min) || (max != null && val > max)) {
+          throw RangeError('Val $val must be between $min and $max.');
+        }
+        data[i] = val;
+      }
+    }
+
+    return GgFloatList._fromBuffer(data, min, max, listType);
+  }
 
   // ...........................................................................
   /// Derived classes can use this constructor to initialize itself based on a
@@ -76,11 +93,35 @@ class GgFloatList extends GgList<double> {
   // ...........................................................................
   @override
   GgFloatList transform(double Function(int i, double val) transform) {
-    return GgFloatList.generate(
-      createValue: (i) => transform(i, value(i)),
-      length: length,
-      min: min,
-      max: max,
+    final src = data as List<double>;
+    final length = src.length;
+    final result = createData(length);
+    final minVal = min;
+    final maxVal = max;
+
+    if (minVal == null && maxVal == null) {
+      for (var i = 0; i < length; i++) {
+        result[i] = transform(i, src[i]);
+      }
+    } else {
+      for (var i = 0; i < length; i++) {
+        final val = transform(i, src[i]);
+        final tooSmall = minVal != null && val < minVal;
+        if (tooSmall || (maxVal != null && val > maxVal)) {
+          throw RangeError('Val $val must be between $minVal and $maxVal.');
+        }
+        result[i] = val;
+      }
+    }
+
+    return GgFloatList(
+      data: result,
+      hashCode: fnv1(result, 0, length),
+      createData: createData,
+      copyData: copyData,
+      createSubList: createSubList,
+      min: minVal,
+      max: maxVal,
       listType: listType,
     );
   }
@@ -119,41 +160,48 @@ class GgFloatList extends GgList<double> {
   ) {
     assert(listType == Float32List || listType == Float64List);
 
-    final createBuffer = listType == Float32List
-        ? Float32List.new
-        : Float64List.new;
+    final data = listType == Float32List
+        ? Float32List(length)
+        : Float64List(length);
 
-    final copyBuffer = listType == Float32List
-        ? Float32List.fromList
-        : Float64List.fromList;
+    if (createValue != null) {
+      if (min == null && max == null) {
+        for (var i = 0; i < length; i++) {
+          data[i] = createValue(i);
+        }
+      } else {
+        for (var i = 0; i < length; i++) {
+          final val = createValue(i);
+          if ((min != null && val < min) || (max != null && val > max)) {
+            throw RangeError('Val $val must be between $min and $max.');
+          }
+          data[i] = val;
+        }
+      }
+    }
 
-    final subList = listType == Float32List
-        ? Float32List.sublistView
-        : Float64List.sublistView;
+    return GgFloatList._fromBuffer(data, min, max, listType);
+  }
 
-    // Generate the int list
-    final result = GgList<double>.special(
-      length: length,
-      createBuffer: createBuffer,
-      copyBuffer: copyBuffer,
-      subList: (p0, [start = 0, end]) => subList(p0 as TypedData, start, end),
-      createValue: createValue == null
-          ? null
-          : (i) {
-              final val = createValue(i);
-              if ((min != null && val < min) || (max != null && val > max)) {
-                throw RangeError('Val $val must be between $min and $max.');
-              }
-              return val;
-            },
-    );
+  // ...........................................................................
+  factory GgFloatList._fromBuffer(
+    List<double> data,
+    double? min,
+    double? max,
+    Type listType,
+  ) {
+    final isFloat32 = listType == Float32List;
 
     return GgFloatList(
-      data: result.data as List<double>,
-      hashCode: result.hashCode,
-      createData: result.createData,
-      copyData: result.copyData,
-      createSubList: result.createSubList,
+      data: data,
+      hashCode: fnv1(data, 0, data.length),
+      createData: isFloat32 ? Float32List.new : Float64List.new,
+      copyData: isFloat32 ? Float32List.fromList : Float64List.fromList,
+      createSubList: isFloat32
+          ? (p0, [start = 0, end]) =>
+                Float32List.sublistView(p0 as TypedData, start, end)
+          : (p0, [start = 0, end]) =>
+                Float64List.sublistView(p0 as TypedData, start, end),
       min: min,
       max: max,
       listType: listType,

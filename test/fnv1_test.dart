@@ -85,5 +85,31 @@ void main() {
         });
       });
     });
+
+    group('should hash unaligned typed data views', () {
+      test('like aligned buffers containing the same bytes', () {
+        final buffer = Uint8List.fromList([for (var i = 0; i < 16; i++) i]);
+
+        for (final (start, end) in [(1, 7), (1, 5), (3, 16), (2, 12)]) {
+          final view = Uint8List.sublistView(buffer, start, end);
+          final aligned = Uint8List.fromList(view.toList());
+          expect(fnv1(view), fnv1(aligned));
+        }
+      });
+    });
+
+    group('should hash iterables that are not lists', () {
+      test('like lists containing the same values', () {
+        final values = <dynamic>['a', 1, E.x];
+        final iterable = values.map((e) => e);
+        expect(fnv1(iterable), fnv1(values));
+      });
+
+      test('like int lists containing the same values', () {
+        final values = <int>[1, 2, 3];
+        final iterable = values.map((e) => e);
+        expect(fnv1(iterable), fnv1(values));
+      });
+    });
   });
 }

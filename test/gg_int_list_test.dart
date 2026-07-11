@@ -241,5 +241,23 @@ void main() {
         expect(exampleGgIntList.toString(), '0, 1, 2, 3, 4, 5, 6, 7');
       });
     });
+
+    // #########################################################################
+    group('fromList(values, min, max)', () {
+      test('should throw if a value is out of range', () {
+        expect(
+          () => GgIntList.fromList([300], min: 0, max: 255),
+          throwsRangeError,
+        );
+      });
+    });
+
+    // #########################################################################
+    group('transform(i, val)', () {
+      test('should throw if a transformed value is out of range', () {
+        final list = GgIntList.fromList([1, 2, 3], min: 0, max: 255);
+        expect(() => list.transform((i, val) => 300), throwsRangeError);
+      });
+    });
   });
 }

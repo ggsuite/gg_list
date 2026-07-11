@@ -36,13 +36,23 @@ class GgIntList extends GgList<int> {
     int? min,
     int? max,
     Type? listType,
-  }) => GgIntList.generate(
-    createValue: (i) => values[i],
-    length: values.length,
-    min: min,
-    max: max,
-    listType: listType,
-  );
+  }) {
+    final naf = GgIntListFactory(min: min, max: max, listType: listType);
+    final length = values.length;
+    final data = naf.createBuffer(length);
+    final minVal = naf.min;
+    final maxVal = naf.max;
+
+    for (var i = 0; i < length; i++) {
+      final val = values[i];
+      if (val < minVal || val > maxVal) {
+        throw RangeError('Val $val must be between $min and $max.');
+      }
+      data[i] = val;
+    }
+
+    return GgIntList._fromBuffer(data, naf);
+  }
 
   // ...........................................................................
   /// Derived classes can use this constructor to initialize itself based on a
@@ -71,11 +81,28 @@ class GgIntList extends GgList<int> {
   // ...........................................................................
   @override
   GgIntList transform(int Function(int i, int val) transform) {
-    return GgIntList.generate(
-      createValue: (i) => transform(i, value(i)),
-      length: length,
-      min: min,
-      max: max,
+    final src = data as List<int>;
+    final length = src.length;
+    final result = createData(length);
+    final minVal = min;
+    final maxVal = max;
+
+    for (var i = 0; i < length; i++) {
+      final val = transform(i, src[i]);
+      if (val < minVal || val > maxVal) {
+        throw RangeError('Val $val must be between $minVal and $maxVal.');
+      }
+      result[i] = val;
+    }
+
+    return GgIntList(
+      data: result,
+      hashCode: fnv1(result, 0, length),
+      createData: createData,
+      copyData: copyData,
+      createSubList: createSubList,
+      min: minVal,
+      max: maxVal,
     );
   }
 
@@ -102,35 +129,35 @@ class GgIntList extends GgList<int> {
     Type? listType,
   ) {
     final naf = GgIntListFactory(min: min, max: max, listType: listType);
+    final data = naf.createBuffer(length);
 
-    // Generate the int list
-    final result = GgList<int>.special(
-      length: length,
-      createBuffer: naf.createBuffer,
-      copyBuffer: naf.copyBuffer,
-      subList: (p0, [start = 0, end]) =>
-          naf.sublistView(p0 as TypedData, start, end),
-      createValue: createValue == null
-          ? null
-          : (i) {
-              final val = createValue(i);
-              if (val < naf.min || val > naf.max) {
-                throw RangeError('Val $val must be between $min and $max.');
-              }
-              return val;
-            },
-    );
+    if (createValue != null) {
+      final minVal = naf.min;
+      final maxVal = naf.max;
+      for (var i = 0; i < length; i++) {
+        final val = createValue(i);
+        if (val < minVal || val > maxVal) {
+          throw RangeError('Val $val must be between $min and $max.');
+        }
+        data[i] = val;
+      }
+    }
 
-    return GgIntList(
-      data: result.data as List<int>,
-      hashCode: result.hashCode,
-      createData: result.createData,
-      copyData: result.copyData,
-      createSubList: result.createSubList,
-      min: naf.min,
-      max: naf.max,
-    );
+    return GgIntList._fromBuffer(data, naf);
   }
+
+  // ...........................................................................
+  factory GgIntList._fromBuffer(List<int> data, GgIntListFactory naf) =>
+      GgIntList(
+        data: data,
+        hashCode: fnv1(data, 0, data.length),
+        createData: naf.createBuffer,
+        copyData: naf.copyBuffer,
+        createSubList: (p0, [start = 0, end]) =>
+            naf.sublistView(p0 as TypedData, start, end),
+        min: naf.min,
+        max: naf.max,
+      );
 }
 
 // #############################################################################

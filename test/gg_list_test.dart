@@ -122,5 +122,19 @@ void main() {
         expect(exampleGgList[5], '5');
       });
     });
+
+    // #########################################################################
+    group('lists created with fromList', () {
+      test('should support transform', () {
+        final list = GgList<String>.fromList(['a', 'b', 'c']);
+        final transformed = list.transform((i, v) => v.toUpperCase());
+        expect(transformed.toList(), ['A', 'B', 'C']);
+      });
+
+      test('should support subList', () {
+        final list = GgList<String>.fromList(['a', 'b', 'c']);
+        expect(list.subList(1, 3), ['b', 'c']);
+      });
+    });
   });
 }

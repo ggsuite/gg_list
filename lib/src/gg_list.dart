@@ -35,9 +35,9 @@ class GgList<T> implements List<T> {
     return GgList<T>.special(
       length: length,
       createBuffer: (length) => List<T>.filled(length, growable: false, fill),
-      copyBuffer: List<T>.from,
+      copyBuffer: List<T>.of,
       subList: (p0, [start = 0, end]) => p0.sublist(start, end),
-      createValue: createValue == null ? null : (i) => createValue(i),
+      createValue: createValue,
     );
   }
 
@@ -48,10 +48,15 @@ class GgList<T> implements List<T> {
       throw ArgumentError('GgList.fromList requires a non-empty list.');
     }
 
-    return GgList.generate(
-      length: values.length,
-      createValue: (i) => values[i],
-      fill: values[0],
+    final fill = values[0];
+    final data = List<T>.of(values);
+
+    return GgList<T>(
+      data: data,
+      hashCode: fnv1(data, 0, data.length),
+      createData: (length) => List<T>.filled(length, growable: false, fill),
+      copyData: List<T>.of,
+      createSubList: (p0, [start = 0, end]) => p0.sublist(start, end),
     );
   }
 
@@ -79,7 +84,7 @@ class GgList<T> implements List<T> {
     }
 
     // Copy data and hashes
-    final data = copyData(this._data);
+    final data = copyData(_data);
 
     // Calculate index
     final index = i;
@@ -88,7 +93,7 @@ class GgList<T> implements List<T> {
     data[index] = value;
 
     // Update hashes
-    final hashCode = fnv1(data, 0, this._data.length);
+    final hashCode = fnv1(data, 0, _data.length);
 
     // Create a new object
     return GgList<T>(
@@ -103,14 +108,20 @@ class GgList<T> implements List<T> {
   // ...........................................................................
   /// Copies the lists and transforms all elements using [transform] delegate
   GgList<T> transform(T Function(int i, T val) transform) {
-    return _generate(
-      createValue: (i) {
-        return transform(i, _data[i]);
-      },
-      copyBuffer: copyData,
-      createBuffer: createData,
-      length: _data.length,
-      subList: createSubList,
+    final data = _data;
+    final length = data.length;
+    final result = createData(length);
+
+    for (var i = 0; i < length; i++) {
+      result[i] = transform(i, data[i]);
+    }
+
+    return GgList<T>(
+      data: result,
+      hashCode: fnv1(result, 0, length),
+      createData: createData,
+      copyData: copyData,
+      createSubList: createSubList,
     );
   }
 
@@ -129,7 +140,7 @@ class GgList<T> implements List<T> {
 
   // ...........................................................................
   /// Returns a sublist
-  List<T> subList(int start, int? end) => createSubList(this._data, start, end);
+  List<T> subList(int start, int? end) => createSubList(_data, start, end);
 
   // ...........................................................................
   @override
@@ -160,7 +171,7 @@ class GgList<T> implements List<T> {
   // ...........................................................................
   @override
   bool operator ==(Object other) {
-    return this.hashCode == other.hashCode;
+    return hashCode == other.hashCode;
   }
 
   // ######################

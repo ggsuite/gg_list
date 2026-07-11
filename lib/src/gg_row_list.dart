@@ -21,12 +21,7 @@ class GgRowList<T> extends GgList<GgRow<T>> {
     required int numRows,
     required GgRow<T> Function(int i) createRow,
   }) {
-    final rows = <GgRow<T>>[];
-
-    for (int i = 0; i < numRows; i++) {
-      final row = createRow(i);
-      rows.add(row);
-    }
+    final rows = List<GgRow<T>>.generate(numRows, createRow, growable: false);
 
     final ggRows = GgList<GgRow<T>>.fromList(rows);
     return GgRowList.fromRows(ggRows);

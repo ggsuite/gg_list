@@ -46,11 +46,9 @@ class Gg2dList<V> {
       rowCount: rowCount,
       colCount: colCount,
       createBuffer: (length) => List<T>.filled(length, growable: false, fill),
-      copyBuffer: List<T>.from,
+      copyBuffer: List<T>.of,
       subList: (p0, [start = 0, end]) => p0.sublist(start, end),
-      createValue: createValue == null
-          ? null
-          : (col, row) => createValue(col, row),
+      createValue: createValue,
     );
   }
 
@@ -117,18 +115,10 @@ class Gg2dList<V> {
     required int rowCount,
     required int colCount,
   }) {
-    int iInversed = 0;
-    int row = 0;
-    int col = 0;
-
-    for (final val in original) {
-      iInversed = col * rowCount + row;
-      transposed[iInversed] = val;
-      col++;
-
-      if (col >= colCount) {
-        row++;
-        col = 0;
+    for (var row = 0; row < rowCount; row++) {
+      final rowStart = row * colCount;
+      for (var col = 0; col < colCount; col++) {
+        transposed[col * rowCount + row] = original[rowStart + col];
       }
     }
   }
@@ -257,7 +247,7 @@ class Gg2dList<V> {
   // ...........................................................................
   @override
   bool operator ==(Object other) {
-    return this.hashCode == other.hashCode;
+    return hashCode == other.hashCode;
   }
 
   // ######################
