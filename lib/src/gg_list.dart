@@ -18,12 +18,12 @@ class GgList<T> implements List<T> {
   // ...........................................................................
   /// The constructor
   const GgList({
-    required List<T> data,
+    required this._data,
     required this.hashCode,
     required this.createData,
     required this.copyData,
     required this.createSubList,
-  }) : _data = data;
+  });
 
   // ...........................................................................
   /// Creates a list of [length] using [createValue] delegate.
