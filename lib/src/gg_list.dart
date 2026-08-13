@@ -1,5 +1,5 @@
 // @license
-// Copyright (c) 2019 - 2023 Dr. Gabriel Gatzsche. All Rights Reserved.
+// Copyright (c) ggsuite
 //
 // Use of this source code is governed by terms that can be
 // found in the LICENSE file in the root of this package.
@@ -18,12 +18,12 @@ class GgList<T> implements List<T> {
   // ...........................................................................
   /// The constructor
   const GgList({
-    required List<T> data,
+    required this._data,
     required this.hashCode,
     required this.createData,
     required this.copyData,
     required this.createSubList,
-  }) : _data = data;
+  });
 
   // ...........................................................................
   /// Creates a list of [length] using [createValue] delegate.

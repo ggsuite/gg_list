@@ -10,6 +10,7 @@
 // check whether the diff regressed fromList (it should have improved it).
 
 import 'dart:typed_data';
+
 import 'package:gg_list/gg_list.dart';
 
 @pragma('vm:never-inline')
