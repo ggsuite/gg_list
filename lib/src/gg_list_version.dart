@@ -9,4 +9,4 @@
 // coverage:ignore-file
 
 /// The version of the `gg_list` package.
-const String ggListVersion = '2.1.0';
+const String ggListVersion = '2.2.0';
