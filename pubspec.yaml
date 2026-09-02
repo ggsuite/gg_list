@@ -1,6 +1,6 @@
 name: gg_list
 description: GgList - Effectively manage native and nonative 1d and 2d data
-version: 2.1.0
+version: 2.2.0
 repository: https://github.com/inlavigo/gg_list
 
 environment:
@@ -9,6 +9,8 @@ environment:
 dev_dependencies:
   args: ^2.7.0
   coverage: ^1.15.1
+  dna_ggsuite: ^0.2.0
   gg_capture_print: ^1.1.0
+  helix: ^1.2.1
   lints: ^6.1.0
   test: ^1.31.2
